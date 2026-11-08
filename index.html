@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dzerofour Project | Patch & Tools PES 2017</title>
+  <meta name="description" content="Dzerofour Patch dan tool modding PES 2017 buatan Prisko Jr Mod: PES Face Converter, Database Toolkit, Kit Converter, HUD Editor, dan CPK Manager.">
+  <meta property="og:title" content="Dzerofour Project | Patch & Tools PES 2017">
+  <meta property="og:description" content="Progres Dzerofour Patch dan tool modding PES 2017 buatan Prisko Jr Mod.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/img/face-3d.jpg">
+  <meta name="theme-color" content="#06110c">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav" id="top">
+    <a class="nav-brand" href="#top" aria-label="Dzerofour Project">
+      <img src="assets/logo-d04.png" alt="" width="40" height="40">
+      <span>Dzerofour</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-t-aria="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="nav-links">
+      <a href="#face" data-t="navFace"></a>
+      <a href="#patch" data-t="navPatch"></a>
+      <a href="#tools" data-t="navTools"></a>
+      <a href="#updates" data-t="navUpdates"></a>
+      <a href="#contact" data-t="navContact"></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="id">ID</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" id="hero-eyebrow"></p>
+        <h1 id="hero-title"></h1>
+        <p class="hero-text" id="hero-text"></p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#patch" id="hero-cta-patch"></a>
+          <a class="btn btn-ghost" href="#face" id="hero-cta-buy"></a>
+        </div>
+      </div>
+      <figure class="board-wrap">
+        <figcaption class="board-head">
+          <strong id="board-label"></strong>
+          <span id="board-hint"></span>
+        </figcaption>
+        <div class="board" id="board">
+          <svg class="board-lines" viewBox="0 0 100 120" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="2" y="2" width="96" height="116"/>
+            <line x1="2" y1="60" x2="98" y2="60"/>
+            <circle cx="50" cy="60" r="11" vector-effect="non-scaling-stroke"/>
+            <rect x="24" y="2" width="52" height="18"/>
+            <rect x="37" y="2" width="26" height="7"/>
+            <rect x="24" y="100" width="52" height="18"/>
+            <rect x="37" y="111" width="26" height="7"/>
+          </svg>
+        </div>
+      </figure>
+    </section>
+
+    <section class="scoreboard" aria-label="Dzerofour Patch">
+      <div class="score-tag"><img src="assets/logo-d04.png" alt="" width="34" height="34"><span>D04</span></div>
+      <dl class="score-list" id="scoreboard"></dl>
+    </section>
+
+    <section class="section face" id="face">
+      <div class="face-media">
+        <img id="face-image" width="772" height="848" loading="lazy" alt="">
+      </div>
+      <div class="face-body">
+        <div class="section-kick"><span class="card-badge" id="face-badge"></span><span id="face-kicker"></span></div>
+        <h2 id="face-name"></h2>
+        <p class="lead" id="face-tagline"></p>
+        <p id="face-summary"></p>
+        <div class="price">
+          <div class="price-row">
+            <strong id="face-idr"></strong>
+            <span id="face-usd"></span>
+          </div>
+          <p id="face-price-note"></p>
+          <a class="btn btn-primary btn-wide" id="face-buy" target="_blank" rel="noopener"></a>
+        </div>
+      </div>
+      <div class="face-details">
+        <div>
+          <h3 id="face-sources-title"></h3>
+          <ul class="chips" id="face-sources"></ul>
+          <h3 id="face-req-title"></h3>
+          <ul class="ticks" id="face-reqs"></ul>
+        </div>
+        <div>
+          <h3 id="face-modes-title"></h3>
+          <dl class="modes" id="face-modes"></dl>
+        </div>
+        <div>
+          <h3 id="face-features-title"></h3>
+          <ul class="ticks" id="face-features"></ul>
+        </div>
+      </div>
+      <figure class="face-shot">
+        <img id="face-shot" width="1400" height="831" loading="lazy" alt="">
+      </figure>
+      <details class="versions">
+        <summary><span id="face-versions-title"></span></summary>
+        <ol id="face-versions"></ol>
+      </details>
+    </section>
+
+    <section class="section patch" id="patch">
+      <div class="section-head">
+        <span class="shirt-no" aria-hidden="true">04</span>
+        <div>
+          <div class="section-kick"><span class="card-badge" id="patch-badge"></span><span id="patch-kicker"></span></div>
+          <h2 id="patch-title"></h2>
+          <p class="lead" id="patch-intro"></p>
+          <p class="stamp" id="patch-updated"></p>
+        </div>
+      </div>
+      <div class="patch-grid">
+        <div>
+          <h3 id="modules-title"></h3>
+          <ul class="modules" id="modules"></ul>
+        </div>
+        <aside class="comps">
+          <p class="comps-kick" id="comps-kick"></p>
+          <h3 id="comps-title"></h3>
+          <p id="comps-text"></p>
+          <ol id="comps-list"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section tools" id="tools">
+      <div class="section-head compact">
+        <div>
+          <div class="section-kick"><span id="tools-kicker"></span></div>
+          <h2 id="tools-title"></h2>
+        </div>
+      </div>
+      <div class="tool-list" id="tool-list"></div>
+    </section>
+
+    <section class="section updates" id="updates">
+      <div class="section-head compact">
+        <div>
+          <div class="section-kick"><span id="updates-kicker"></span></div>
+          <h2 id="updates-title"></h2>
+        </div>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2 id="contact-title"></h2>
+      <p id="contact-text"></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" id="contact-wa" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-ghost" id="contact-fb" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-brand"><img src="assets/logo-d04.png" alt="" width="28" height="28"> &copy; <span id="year"></span> Dzerofour Project · Prisko Jr Mod</p>
+    <p class="footer-legal" id="disclaimer"></p>
+  </footer>
+
+  <!-- Isi situs ada di folder data/. Lihat PANDUAN-UPDATE.md -->
+  <script src="data/site.js"></script>
+  <script src="data/products.js"></script>
+  <script src="data/patch-stats.js"></script>
+  <script src="data/patch.js"></script>
+  <script src="data/updates.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
