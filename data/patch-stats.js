@@ -11,5 +11,6 @@ window.PATCH_STATS = {
   kits: 320,
   kitTeams: 81,
   facesNational: 228,
-  facesSpain: 43
+  facesSpain: 43,
+  faces: 263
 };

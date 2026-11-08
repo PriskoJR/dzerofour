@@ -4,9 +4,12 @@
    Saat tool baru rilis, ubah di tool itu:
      status: "released"        (sebelumnya "soon")
      price:  { idr: "Rp ...", usd: "US$..." }
-   Kartu kuning otomatis berubah jadi hijau dan tombolnya jadi "Beli".
+   Label kuning otomatis jadi hijau, tombolnya jadi "Beli", dan tool itu
+   pindah ke barisan paling depan di Home.
 
-   board = posisi di papan taktik hero. x dan y dalam persen.
+   id  = alamat halaman detail, misalnya tool.html?id=kit
+   no  = nomor punggung yang tampil di kartu.
+   Tool baru: salin satu blok { ... } dan beri id baru. Halamannya otomatis ada.
    ===================================================================== */
 window.PRODUCTS = [
   {
@@ -16,7 +19,7 @@ window.PRODUCTS = [
     status: "released",
     version: "v1.4.1",
     price: { idr: "Rp 750.000", usd: "US$55" },
-    board: { no: "10", x: 22, y: 38 },
+    no: "10",
     image: "assets/img/face-3d.jpg",
     imageAlt: "Pratinjau 3D face Kevin Diks hasil konversi di PES Face Converter",
     screenshot: "assets/img/face-project.jpg",
@@ -69,7 +72,7 @@ window.PRODUCTS = [
     short: "Database Toolkit",
     status: "soon",
     version: "v1.1.0 Winter",
-    board: { no: "6", x: 66, y: 64 },
+    no: "6",
     image: "assets/img/database-toolkit.jpg",
     imageAlt: "Halaman Players di PES Database Toolkit",
     tagline: {
@@ -99,7 +102,7 @@ window.PRODUCTS = [
     short: "Kit Converter",
     status: "soon",
     version: "v0.4.0",
-    board: { no: "7", x: 78, y: 38 },
+    no: "7",
     image: "assets/img/kit-converter.jpg",
     imageAlt: "Perbandingan 3D kit PES 2021 dan PES 2017 di PES Kit Converter",
     tagline: {
@@ -127,7 +130,7 @@ window.PRODUCTS = [
     short: "HUD Editor",
     status: "soon",
     version: "v0.1.0",
-    board: { no: "8", x: 34, y: 64 },
+    no: "8",
     image: "assets/img/hud-editor.jpg",
     imageAlt: "PES HUD Editor dengan pratinjau uji warna pada menu utama",
     imageNote: { id: "Warna terang di pratinjau adalah pola uji, bukan desain akhir.", en: "The bright colours in the preview are a test pattern, not a final design." },
@@ -155,7 +158,7 @@ window.PRODUCTS = [
     short: "CPK Manager",
     status: "soon",
     version: "v1.6",
-    board: { no: "1", x: 50, y: 88 },
+    no: "1",
     icon: "assets/img/cpk-manager-icon.png",
     tagline: {
       id: "Bongkar dan bangun file CPK cukup dengan tarik dan lepas.",

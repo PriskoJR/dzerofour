@@ -16,9 +16,8 @@ window.PATCH = {
     en: "A PES 2017 patch in the making: a new database, thousands of minifaces, facepacks, kitpacks, logos and competitions the game never had."
   },
 
-  // Dua angka ini tidak bisa dihitung otomatis. Lihat nilainya di
-  // PES Face Converter > Project ("... with a real face", "... competitions").
-  realFaces: 629,
+  // Angka ini tidak dihitung otomatis. Lihat nilainya di
+  // PES Face Converter > Project ("... competitions").
   competitions: 51,
 
   // Papan skor. key = nama angka di patch-stats.js ATAU di atas.
@@ -26,7 +25,7 @@ window.PATCH = {
     { key: "players", label: { id: "Pemain", en: "Players" } },
     { key: "minifaces", label: { id: "Miniface", en: "Minifaces" } },
     { key: "teams", label: { id: "Tim", en: "Teams" } },
-    { key: "realFaces", label: { id: "Real face", en: "Real faces" } },
+    { key: "faces", label: { id: "Face", en: "Faces" } },
     { key: "competitions", label: { id: "Kompetisi", en: "Competitions" } },
     { key: "kits", label: { id: "Kit", en: "Kits" } }
   ],
@@ -55,8 +54,8 @@ window.PATCH = {
       status: "progress",
       percent: null,
       text: {
-        id: "{realFaces} real face di database. Project: Nasional {facesNational}, Spanyol {facesSpain}.",
-        en: "{realFaces} real faces in the database. Projects: National {facesNational}, Spain {facesSpain}."
+        id: "{faces} face di facepack: Nasional {facesNational}, Spanyol {facesSpain}.",
+        en: "{faces} faces in the facepacks: National {facesNational}, Spain {facesSpain}."
       }
     },
     {
