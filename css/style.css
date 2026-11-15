@@ -220,6 +220,13 @@ summary:hover { color: var(--mint); }
 .comps ol { counter-reset: c; margin-top: 16px; }
 .comps li { counter-increment: c; display: flex; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid rgba(6, 17, 12, .18); font-weight: 700; font-size: .98rem; }
 .comps li::before { content: counter(c); display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: var(--mint); font: 800 1rem/1 var(--display); }
+.comps:has(.comp-groups) { position: static; }
+.comp-groups { counter-reset: c; margin-top: 18px; display: grid; gap: 14px; }
+.comp-groups ol { counter-reset: none; margin-top: 4px; }
+.comp-groups li { padding: 7px 0; font-size: .94rem; }
+.comp-groups li::before { width: 24px; height: 24px; font-size: .9rem; }
+.comp-group-name { font: 800 .82rem/1.2 var(--body); text-transform: uppercase; letter-spacing: .08em; color: #0e7a49; }
+.comps-note { margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(6, 17, 12, .18); font-size: .9rem !important; }
 
 /* TIMELINE */
 .timeline { border-left: 3px solid var(--mint); margin-left: 6px; }

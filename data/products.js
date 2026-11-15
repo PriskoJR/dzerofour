@@ -68,13 +68,13 @@ window.PRODUCTS = [
 
   {
     id: "database",
-    name: "PES Database Toolkit",
-    short: "Database Toolkit",
+    name: "PES Database Editor",
+    short: "Database Editor",
     status: "soon",
     version: "v1.1.0 Winter",
     no: "6",
     image: "assets/img/database-toolkit.jpg",
-    imageAlt: "Halaman Players di PES Database Toolkit",
+    imageAlt: "Halaman Players di PES Database Editor",
     tagline: {
       id: "Editor database dan pembuat patch lengkap untuk PES 2017.",
       en: "A complete database editor and patch builder for PES 2017."
@@ -89,6 +89,10 @@ window.PRODUCTS = [
       { id: "Peserta liga dan turnamen, plus Replace League", en: "League and tournament entrants, plus Replace League" },
       { id: "Stadion dan teks menu 18 bahasa", en: "Stadiums and menu text in 18 languages" },
       { id: "Import skuad dari Transfermarkt, Football Manager, PES Master, dan eFootball", en: "Import squads from Transfermarkt, Football Manager, PES Master and eFootball" },
+      { id: "Competition Converter: sinkron atau ganti peserta satu kompetisi langsung dari eFootball", en: "Competition Converter: sync or replace a whole competition's clubs straight from eFootball" },
+      { id: "Buat tim baru cukup dari link PES Master: skuad, pelatih, logo, dan formasi", en: "Create a new team from a PES Master link: squad, coach, logo and formation" },
+      { id: "Ekstensi Chrome PES DB Collector untuk Transfermarkt, PES Master, SoFIFA, dan sortitoutsi", en: "PES DB Collector Chrome extension for Transfermarkt, PES Master, SoFIFA and sortitoutsi" },
+      { id: "Siap untuk database besar: sampai 40.000 pemain dan 2.500 tim", en: "Ready for big databases: up to 40,000 players and 2,500 teams" },
       { id: "Logo tim dan kompetisi, satu per satu atau satu folder sekaligus", en: "Team and competition logos, one at a time or a whole folder" },
       { id: "Check integritas database dengan tombol Fix", en: "Database integrity Check with a Fix button" },
       { id: "Import dan export tabel apa pun ke CSV atau JSON", en: "Import and export any table to CSV or JSON" },
@@ -149,6 +153,32 @@ window.PRODUCTS = [
       { id: "Ubah teks tab, judul, dan deskripsi", en: "Edit tab, title and description text" },
       { id: "Latar menu dari gambar atau video", en: "Menu backgrounds from an image or video" },
       { id: "Pasang dan lepas CPK dengan satu tombol", en: "Install and uninstall the CPK with one button" }
+    ]
+  },
+
+  {
+    id: "audio",
+    name: "PES Audio Editor",
+    short: "Audio Editor",
+    status: "soon",
+    version: "v0.1.0",
+    no: "9",
+    icon: "assets/img/audio-editor-icon.png",
+    tagline: {
+      id: "Buat callname dan commentary PES 2017 dalam satu aplikasi, tanpa Atom Craft.",
+      en: "Make PES 2017 callnames and commentary in one app, without Atom Craft."
+    },
+    summary: {
+      id: "Pengganti alur lama yang butuh lima alat dan skrip. Cari, dengar, ganti, atau tambah suara komentator, lalu build jadi CPK berformat Konami dan pasang ke game.",
+      en: "Replaces an old workflow of five tools and scripts. Find, play, replace or add commentary, then build a Konami-format CPK and install it."
+    },
+    features: [
+      { id: "Pustaka commentary: cari lewat nama, ID, atau nama pemain, putar, dan ekspor WAV", en: "Commentary library: search by name, ID or player name, play and export WAV" },
+      { id: "Pembuat Callname dengan penjelasan dan contoh kalimat tiap slot", en: "Callname Maker that explains each slot with example lines" },
+      { id: "Callname dan commentary dari eFootball dikonversi ke PES 2017", en: "Callnames and commentary from eFootball converted to PES 2017" },
+      { id: "Nama pemain di menu Edit ikut diperbarui, urut A-Z", en: "Player names in the Edit menu updated too, sorted A-Z" },
+      { id: "Encode sekali saja, audio asli tidak dikompres dua kali", en: "Encodes once, so original audio is never compressed twice" },
+      { id: "Build CPK dan pasang otomatis ke download, file lama dibackup", en: "Builds a CPK and installs it to download, with backups" }
     ]
   },
 

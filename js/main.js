@@ -182,9 +182,13 @@
 
   /* ---------- HOME ---------- */
 
-  // Modul patch tampil sebagai pemain, 3 orang per baris.
+  // Modul patch tampil sebagai pemain: 3 per baris, atau 4 kalau modulnya lebih dari 9.
+  // Papan ikut memanjang kalau barisnya lebih dari 3.
   function patchBoard() {
-    var rows = Math.ceil(patch.modules.length / 3);
+    var perRow = patch.modules.length > 9 ? 4 : 3;
+    var rows = Math.ceil(patch.modules.length / perRow);
+    var boardStyle = rows > 3 ? "aspect-ratio:100 / " + (92 + (rows - 3) * 26) : null;
+    var tokenWidth = perRow === 4 ? "width:24%;" : "";
     return h("a.board-wrap", { href: "patch.html", "aria-label": t(ui.patchTitle) },
       h("span.board-head", null,
         h("strong", null, t(site.home.boardLabel)),
@@ -194,15 +198,15 @@
           h("i.is-planned", null, t(ui.planned))
         )
       ),
-      h("span.board", null,
+      h("span.board", { style: boardStyle },
         boardLines(),
         patch.modules.map(function (module, index) {
-          var row = Math.floor(index / 3);
-          var inRow = Math.min(3, patch.modules.length - row * 3);
-          var col = index % 3;
+          var row = Math.floor(index / perRow);
+          var inRow = Math.min(perRow, patch.modules.length - row * perRow);
+          var col = index % perRow;
           var x = (100 / (inRow + 1)) * (col + 1);
           var y = (100 / (rows + 1)) * (row + 1) + 1;
-          return h("span.token.is-" + module.status, { style: "left:" + x + "%;top:" + y + "%" },
+          return h("span.token.is-" + module.status, { style: tokenWidth + "left:" + x + "%;top:" + y + "%" },
             h("span.token-no", null, String(index + 1)),
             h("span.token-name", null, t(module.name))
           );
@@ -262,7 +266,7 @@
         h("div.home-copy", null,
           h("div.kick", null, badge(patch.status), h("span", null, t(site.home.eyebrow))),
           h("h1", null, t(site.home.title)),
-          h("p.home-text", null, t(patch.intro)),
+          h("p.home-text", null, fill(patch.intro)),
           h("div.cta", null,
             h("a.btn.btn-primary", { href: "patch.html" }, t(site.home.ctaPatch)),
             h("a.btn.btn-ghost", { href: "#tools" }, t(site.home.ctaTools))
@@ -317,6 +321,18 @@
     ];
   }
 
+  // items boleh daftar biasa ["A", "B"] atau berkelompok [{ group, items }].
+  function competitionItems(items) {
+    var grouped = items.some(function (item) { return item && item.group; });
+    if (!grouped) return h("ol", null, items.map(function (item) { return h("li", null, t(item)); }));
+    return h("div.comp-groups", null, items.map(function (group) {
+      return h("div.comp-group", null,
+        h("p.comp-group-name", null, t(group.group)),
+        h("ol", null, group.items.map(function (item) { return h("li", null, t(item)); }))
+      );
+    }));
+  }
+
   function patchPage() {
     document.title = "Dzerofour Patch | " + site.brand;
     return [
@@ -327,7 +343,7 @@
           h("div", null,
             h("div.kick", null, badge(patch.status), h("span", null, t(ui.patchKicker))),
             h("h1.page-title", null, t(ui.patchTitle)),
-            h("p.lead", null, t(patch.intro)),
+            h("p.lead", null, fill(patch.intro)),
             stats.updated ? h("p.stamp", null, t(ui.patchUpdated) + " " + dateText(stats.updated)) : null
           )
         )
@@ -341,9 +357,10 @@
           ),
           h("aside.comps", null,
             h("p.comps-kick", null, t(ui.compsTitle)),
-            h("h2", null, t(patch.competitionsList.title)),
-            h("p", null, t(patch.competitionsList.text)),
-            h("ol", null, patch.competitionsList.items.map(function (item) { return h("li", null, t(item)); }))
+            h("h2", null, fill(patch.competitionsList.title)),
+            h("p", null, fill(patch.competitionsList.text)),
+            competitionItems(patch.competitionsList.items),
+            patch.competitionsList.note ? h("p.comps-note", null, fill(patch.competitionsList.note)) : null
           )
         )
       ),
