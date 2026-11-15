@@ -16,7 +16,9 @@ window.SITE = {
     title: "Dzerofour Patch",
     ctaPatch: { id: "Lihat progres patch", en: "See patch progress" },
     ctaTools: { id: "Lihat tools", en: "See the tools" },
-    boardLabel: { id: "Line-up patch", en: "Patch line-up" },
+    boardLabel: "Team sheet",
+    boardSub: { id: "Dzerofour Patch · musim 2026/27", en: "Dzerofour Patch · 2026/27 season" },
+    boardCount: { id: "modul", en: "modules" },
     toolsKicker: "PES 2017 Modding Tools",
     toolsTitle: { id: "Daftar tools", en: "The tools" },
     toolsText: {

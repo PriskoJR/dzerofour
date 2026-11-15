@@ -182,60 +182,42 @@
 
   /* ---------- HOME ---------- */
 
-  // Modul patch tampil sebagai pemain: 3 per baris, atau 4 kalau modulnya lebih dari 9.
-  // Papan ikut memanjang kalau barisnya lebih dari 3.
-  function patchBoard() {
-    var perRow = patch.modules.length > 9 ? 4 : 3;
-    var rows = Math.ceil(patch.modules.length / perRow);
-    var boardStyle = rows > 3 ? "aspect-ratio:100 / " + (92 + (rows - 3) * 26) : null;
-    var tokenWidth = perRow === 4 ? "width:24%;" : "";
-    return h("a.board-wrap", { href: "patch.html", "aria-label": t(ui.patchTitle) },
-      h("span.board-head", null,
-        h("strong", null, t(site.home.boardLabel)),
-        h("span.board-legend", null,
-          h("i.is-done", null, t(ui.done)),
-          h("i.is-progress", null, t(ui.progress)),
-          h("i.is-planned", null, t(ui.planned))
-        )
-      ),
-      h("span.board", { style: boardStyle },
-        boardLines(),
-        patch.modules.map(function (module, index) {
-          var row = Math.floor(index / perRow);
-          var inRow = Math.min(perRow, patch.modules.length - row * perRow);
-          var col = index % perRow;
-          var x = (100 / (inRow + 1)) * (col + 1);
-          var y = (100 / (rows + 1)) * (row + 1) + 1;
-          return h("span.token.is-" + module.status, { style: tokenWidth + "left:" + x + "%;top:" + y + "%" },
-            h("span.token-no", null, String(index + 1)),
-            h("span.token-name", null, t(module.name))
-          );
-        })
-      )
-    );
+  // Modul patch tampil sebagai team sheet: daftar skuad dua kolom, berapa pun jumlahnya.
+  // Bar di atasnya seperti "ball possession": perbandingan Selesai, Dikerjakan, dan Direncanakan.
+  function statusKey(status) {
+    return ["done", "progress", "planned"].indexOf(status) >= 0 ? status : "planned";
   }
 
-  function boardLines() {
-    var ns = "http://www.w3.org/2000/svg";
-    var svg = document.createElementNS(ns, "svg");
-    svg.setAttribute("class", "board-lines");
-    svg.setAttribute("viewBox", "0 0 100 120");
-    svg.setAttribute("preserveAspectRatio", "none");
-    svg.setAttribute("aria-hidden", "true");
-    [
-      ["rect", { x: 2, y: 2, width: 96, height: 116 }],
-      ["line", { x1: 2, y1: 60, x2: 98, y2: 60 }],
-      ["circle", { cx: 50, cy: 60, r: 11 }],
-      ["rect", { x: 24, y: 2, width: 52, height: 18 }],
-      ["rect", { x: 37, y: 2, width: 26, height: 7 }],
-      ["rect", { x: 24, y: 100, width: 52, height: 18 }],
-      ["rect", { x: 37, y: 111, width: 26, height: 7 }]
-    ].forEach(function (shape) {
-      var node = document.createElementNS(ns, shape[0]);
-      Object.keys(shape[1]).forEach(function (key) { node.setAttribute(key, shape[1][key]); });
-      svg.appendChild(node);
-    });
-    return svg;
+  function patchBoard() {
+    var keys = ["done", "progress", "planned"];
+    var counts = { done: 0, progress: 0, planned: 0 };
+    patch.modules.forEach(function (module) { counts[statusKey(module.status)]++; });
+
+    return h("a.sheet", { href: "patch.html", "aria-label": t(ui.patchTitle) },
+      h("span.sheet-head", null,
+        h("span.sheet-crest", null, h("img", { src: "assets/logo-d04.png", alt: "", width: 34, height: 34 })),
+        h("span.sheet-title", null,
+          h("strong", null, t(site.home.boardLabel)),
+          h("span", null, t(site.home.boardSub))
+        ),
+        h("span.sheet-total", null, h("b", null, String(patch.modules.length)), t(site.home.boardCount))
+      ),
+      h("span.sheet-bar", { "aria-hidden": "true" }, keys.map(function (key) {
+        return counts[key] ? h("i.is-" + key, { style: "flex:" + counts[key] }) : null;
+      })),
+      h("span.sheet-legend", null, keys.map(function (key) {
+        return h("span.is-" + key, null, h("b", null, String(counts[key])), " " + t(ui[key]));
+      })),
+      h("ol.sheet-list", null, patch.modules.map(function (module, index) {
+        var key = statusKey(module.status);
+        return h("li.sheet-row.is-" + key, null,
+          h("span.sheet-no", null, String(index + 1)),
+          h("span.sheet-name", null, t(module.name)),
+          h("span.sheet-status", null, h("span.sr-only", null, t(ui[key])))
+        );
+      })),
+      h("span.sheet-more", null, t(ui.viewDetail), " →")
+    );
   }
 
   function toolCard(item) {
