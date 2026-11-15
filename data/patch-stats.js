@@ -6,6 +6,8 @@ window.PATCH_STATS = {
   coaches: 1094,
   competitions: 87,
   newCompetitions: 26,
+  regulations: 200,
+  competitionEntries: 1286,
   minifaces: 11273,
   teamLogos: 591,
   competitionLogos: 76,

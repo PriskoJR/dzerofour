@@ -7,6 +7,14 @@
 window.UPDATES = [
   {
     date: "2026-11-15",
+    tag: "Face Toolkit",
+    text: {
+      id: "PES Face Converter kini bernama PES Face Toolkit.",
+      en: "PES Face Converter is now called PES Face Toolkit."
+    }
+  },
+  {
+    date: "2026-11-15",
     tag: "AFC",
     text: {
       id: "AFC Champions League Two (32 klub, 8 grup) berjalan di League Mode. AFC Champions League Elite memakai pot resmi 2026/27 dan fase liga per wilayah.",

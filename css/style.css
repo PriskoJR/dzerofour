@@ -228,6 +228,118 @@ summary:hover { color: var(--mint); }
 .comp-group-name { font: 800 .82rem/1.2 var(--body); text-transform: uppercase; letter-spacing: .08em; color: #0e7a49; }
 .comps-note { margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(6, 17, 12, .18); font-size: .9rem !important; }
 
+/* PATCH: navigasi bagian */
+.jump { position: sticky; top: 63px; z-index: 15; display: flex; align-items: center; gap: 14px; padding: 10px var(--gutter); background: rgba(10, 27, 19, .94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.jump::-webkit-scrollbar { display: none; }
+.jump-label { color: var(--muted); font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+.jump ul { display: flex; gap: 6px; }
+.jump a { display: block; padding: 6px 12px; border: 1px solid var(--line-strong); border-radius: 999px; text-decoration: none; font-size: .86rem; font-weight: 600; white-space: nowrap; transition: border-color .15s, color .15s; }
+.jump a:hover { border-color: var(--mint); color: var(--mint); }
+html:has(.jump) { scroll-padding-top: 124px; }
+
+/* PATCH: pita latar */
+.band { background: var(--pitch); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+h3 { font-family: var(--display); text-transform: uppercase; line-height: 1; margin: 0; }
+
+/* PATCH: status kecil */
+.status { display: inline-flex; align-items: center; gap: 7px; font-size: .8rem; font-weight: 700; white-space: nowrap; }
+.status::before { content: ""; width: 9px; height: 13px; border-radius: 2px; background: var(--muted); }
+.status.is-done::before { background: var(--mint); }
+.status.is-progress::before { background: var(--yellow); }
+.status.is-planned { color: var(--muted); }
+
+/* PATCH: format baru */
+.compare { margin-bottom: clamp(28px, 4vw, 44px); }
+.compare-title { font-size: 1.35rem; font-weight: 800; letter-spacing: .02em; margin-bottom: 14px; }
+.compare-table { border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; }
+.compare-row { display: grid; grid-template-columns: minmax(120px, .8fr) minmax(0, 1fr) minmax(0, 1.2fr); }
+.compare-row > span { padding: 12px 16px; border-top: 1px solid var(--line); font-size: .98rem; }
+.compare-headrow > span { border-top: 0; background: var(--panel); color: var(--muted); font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.compare-headrow .is-after { color: var(--mint); }
+.compare-label { color: var(--muted); font-weight: 600; }
+.compare-before { color: var(--muted); }
+.compare-after { font-weight: 700; background: rgba(63, 217, 143, .07); border-left: 3px solid var(--mint); }
+.compare-note { color: var(--muted); font-size: .92rem; margin-top: 12px; max-width: 52em; }
+.format-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 18px); }
+.format-card { display: flex; flex-direction: column; gap: 12px; padding: clamp(16px, 1.8vw, 22px); background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--muted); border-radius: 8px; }
+.format-card.is-done { border-top-color: var(--mint); }
+.format-card.is-progress { border-top-color: var(--yellow); }
+.format-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.format-top h3 { font-size: 1.45rem; font-weight: 800; }
+.format-card p { color: var(--muted); font-size: .93rem; }
+.format-card .chips li { font-size: .8rem; padding: 3px 9px; }
+
+/* PATCH: galeri */
+.gallery { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.2vw, 16px); }
+.gallery li:first-child { grid-column: span 2; grid-row: span 2; }
+.shot { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; background: var(--pitch); cursor: zoom-in; color: var(--text); text-align: left; font: inherit; }
+.shot img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .25s; }
+.shot:hover img { transform: scale(1.03); }
+.shot:hover { border-color: var(--mint); }
+.shot-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 12px 9px; font-size: .84rem; font-weight: 600; line-height: 1.3; background: linear-gradient(transparent, rgba(6, 17, 12, .92)); }
+.gallery li:not(:first-child) .shot-cap { font-size: .76rem; }
+.viewer { width: min(1280px, 94vw); max-height: 94vh; padding: 0; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--ink); color: var(--text); }
+.viewer::backdrop { background: rgba(0, 0, 0, .82); }
+.viewer img { width: 100%; max-height: calc(94vh - 120px); object-fit: contain; background: #000; }
+.viewer-bar { display: flex; align-items: center; gap: 8px; padding: 8px 10px; }
+.viewer-count { margin-right: auto; color: var(--muted); font-size: .86rem; font-variant-numeric: tabular-nums; padding-left: 6px; }
+.viewer-btn { min-width: 42px; min-height: 40px; border: 1px solid var(--line-strong); border-radius: 6px; background: none; color: var(--text); font-size: 1.05rem; cursor: pointer; }
+.viewer-btn:hover { border-color: var(--mint); color: var(--mint); }
+.viewer-cap { padding: 12px 16px 16px; font-size: .95rem; }
+
+/* PATCH: database asli vs Dzerofour */
+.dbtable { border-top: 1px solid var(--line-strong); }
+.db-row { display: grid; grid-template-columns: minmax(150px, 1.3fr) repeat(3, minmax(0, 1fr)); align-items: baseline; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.db-headrow { padding: 10px 0; }
+.db-headrow > span { color: var(--muted); font-size: .76rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.db-headrow .is-now { color: var(--mint); }
+.db-label { font: 800 1.3rem/1.1 var(--display); text-transform: uppercase; }
+.db-num { font: 800 clamp(1.3rem, 2.2vw, 1.8rem)/1 var(--display); color: var(--muted); font-variant-numeric: tabular-nums; }
+.db-num.is-now { color: var(--text); font-size: clamp(1.6rem, 2.8vw, 2.3rem); }
+.db-bar { grid-column: 1 / -1; position: relative; height: 8px; margin-top: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+.db-bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; }
+.db-bar-now { background: var(--mint); }
+.db-bar-old { background: var(--yellow); z-index: 1; opacity: .9; }
+.db-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; }
+.db-legend i { font-style: normal; color: var(--muted); font-size: .82rem; display: inline-flex; align-items: center; gap: 7px; }
+.db-legend i::before { content: ""; width: 18px; height: 8px; border-radius: 4px; background: var(--panel-2); }
+.db-legend .is-old::before { background: var(--yellow); }
+.db-legend .is-now::before { background: var(--mint); }
+
+/* PATCH: isi liga */
+.region + .region { margin-top: clamp(28px, 3.6vw, 44px); }
+.region-name { display: flex; align-items: baseline; gap: 10px; font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+.region-name span { color: var(--muted); font: 600 .9rem var(--body); }
+.league-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: start; }
+.league { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+.league.is-new { border-left: 3px solid var(--mint); }
+.league[open] { border-color: var(--line-strong); }
+.league summary { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; font: inherit; text-transform: none; letter-spacing: 0; list-style: none; }
+.league summary::-webkit-details-marker { display: none; }
+.league summary::after { content: "+"; flex: none; color: var(--muted); font-weight: 700; font-size: 1.1rem; }
+.league[open] summary::after { content: "−"; color: var(--mint); }
+.league-main { display: flex; flex-direction: column; min-width: 0; }
+.league-name { font: 800 1.12rem/1.15 var(--display); text-transform: uppercase; letter-spacing: .02em; }
+.league-country { color: var(--muted); font-size: .8rem; }
+.league-side { display: flex; align-items: center; gap: 8px; margin-left: auto; flex: none; }
+.league-new { background: var(--mint); color: var(--ink); padding: 2px 7px 1px; border-radius: 3px; font: 800 .8rem/1.1 var(--display); text-transform: uppercase; letter-spacing: .05em; }
+.league-count { color: var(--muted); font-size: .8rem; font-weight: 600; white-space: nowrap; }
+.league-body { padding: 0 14px 14px; }
+.league-cups { color: var(--muted); font-size: .84rem; padding: 10px 0; border-top: 1px solid var(--line); }
+.league-cups b { color: var(--text); }
+.league-teams { columns: 2; column-gap: 16px; padding-top: 10px; border-top: 1px solid var(--line); counter-reset: t; }
+.league-teams li { counter-increment: t; break-inside: avoid; font-size: .86rem; padding: 3px 0; display: flex; gap: 7px; }
+.league-teams li::before { content: counter(t); color: var(--muted); font-size: .76rem; min-width: 18px; text-align: right; font-variant-numeric: tabular-nums; padding-top: 1px; }
+
+/* PATCH: berikutnya */
+.roadmap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); }
+.road { padding: 16px 0 16px 16px; border-top: 1px solid var(--line); border-left: 3px solid var(--muted); }
+.road.is-progress { border-left-color: var(--yellow); }
+.road.is-done { border-left-color: var(--mint); }
+.road-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
+.road h3 { font-size: 1.3rem; font-weight: 800; }
+.road p { color: var(--muted); font-size: .94rem; }
+
 /* TIMELINE */
 .timeline { border-left: 3px solid var(--mint); margin-left: 6px; }
 .event { position: relative; display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 4px 20px; padding: 14px 0 14px 24px; }
@@ -265,6 +377,9 @@ summary:hover { color: var(--mint); }
   .detail-info.cols-3 > :last-child { grid-column: 1 / -1; }
   .patch-grid { grid-template-columns: 1fr; }
   .comps { position: static; }
+  .format-grid, .league-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery li:first-child { grid-row: auto; }
 }
 
 /* NAV HP */
@@ -293,6 +408,19 @@ summary:hover { color: var(--mint); }
   .patch-head { flex-direction: column; gap: 10px; }
   .cta .btn { width: 100%; }
   .event { grid-template-columns: 1fr; gap: 2px; }
+  .format-grid, .league-grid, .roadmap { grid-template-columns: 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+  .gallery li:first-child { grid-column: auto; }
+  .compare-headrow { display: none; }
+  .compare-row { grid-template-columns: 1fr 1fr; }
+  .compare-label { grid-column: 1 / -1; padding-bottom: 0 !important; font-size: .8rem !important; text-transform: uppercase; letter-spacing: .06em; }
+  .compare-before, .compare-after { border-top: 0 !important; }
+  .compare-before::before, .compare-after::before { content: attr(data-label); display: block; color: var(--muted); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; text-decoration: none; margin-bottom: 2px; }
+  .db-headrow { display: none; }
+  .db-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .db-label { grid-column: 1 / -1; margin-bottom: 4px; }
+  .db-num::before { content: attr(data-label); display: block; color: var(--muted); font: 700 .66rem/1.3 var(--body); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 3px; }
+  .league-teams { columns: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

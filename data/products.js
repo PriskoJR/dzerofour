@@ -14,16 +14,16 @@
 window.PRODUCTS = [
   {
     id: "face",
-    name: "PES Face Converter",
-    short: "Face Converter",
+    name: "PES Face Toolkit",
+    short: "Face Toolkit",
     status: "released",
     version: "v1.4.1",
-    price: { idr: "Rp 750.000", usd: "US$55" },
+    price: { idr: "Rp 850.000", usd: "US$55" },
     no: "10",
     image: "assets/img/face-3d.jpg",
-    imageAlt: "Pratinjau 3D face Kevin Diks hasil konversi di PES Face Converter",
+    imageAlt: "Pratinjau 3D face Kevin Diks hasil konversi di PES Face Toolkit",
     screenshot: "assets/img/face-project.jpg",
-    screenshotAlt: "Halaman Project di PES Face Converter",
+    screenshotAlt: "Halaman Project di PES Face Toolkit",
     tagline: {
       id: "Ubah face PES 2021, eFootball, dan FC 27 jadi face PES 2017 yang siap dipakai.",
       en: "Turn PES 2021, eFootball and FC 27 faces into PES 2017 faces, ready to play."

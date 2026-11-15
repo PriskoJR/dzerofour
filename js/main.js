@@ -333,6 +333,206 @@
     }));
   }
 
+  function sectionHead(kick, title, text) {
+    return h("div.section-head", null,
+      h("div", null,
+        kick ? h("div.kick", null, h("span", null, t(kick))) : null,
+        h("h2", null, fill(title)),
+        text ? h("p.lead", null, fill(text)) : null
+      )
+    );
+  }
+
+  function jumpNav() {
+    var links = [
+      ["modules", ui.jumpModules, true],
+      ["formats", ui.jumpFormats, patch.formats],
+      ["gallery", ui.jumpGallery, patch.gallery],
+      ["database", ui.jumpDatabase, patch.database],
+      ["leagues", ui.jumpLeagues, patch.leagues && window.LEAGUES],
+      ["roadmap", ui.jumpRoadmap, patch.roadmap],
+      ["updates", ui.jumpUpdates, true]
+    ].filter(function (link) { return link[2]; });
+    return h("nav.jump", { "aria-label": t(ui.jumpLabel) },
+      h("span.jump-label", null, t(ui.jumpLabel)),
+      h("ul", null, links.map(function (link) {
+        return h("li", null, h("a", { href: "#" + link[0] }, t(link[1])));
+      }))
+    );
+  }
+
+  function statusDot(status) {
+    var key = ["done", "progress", "planned"].indexOf(status) >= 0 ? status : "planned";
+    return h("span.status.is-" + key, null, t(ui[key]));
+  }
+
+  function formatsSection() {
+    var f = patch.formats;
+    if (!f) return null;
+    var c = f.compare;
+    return h("div.band", null, h("section.section", { id: "formats" },
+      sectionHead(null, f.title, f.text),
+      c ? h("div.compare", null,
+        h("h3.compare-title", null, t(c.title)),
+        h("div.compare-table", { role: "table", "aria-label": t(c.title) },
+          h("div.compare-row.compare-headrow", { role: "row" },
+            h("span", { role: "columnheader" }, ""),
+            h("span", { role: "columnheader" }, t(c.before)),
+            h("span.is-after", { role: "columnheader" }, t(c.after))
+          ),
+          c.rows.map(function (row) {
+            return h("div.compare-row", { role: "row" },
+              h("span.compare-label", { role: "rowheader" }, t(row.label)),
+              h("span.compare-before", { role: "cell", "data-label": t(c.before) }, t(row.before)),
+              h("span.compare-after", { role: "cell", "data-label": t(c.after) }, t(row.after))
+            );
+          })
+        ),
+        c.note ? h("p.compare-note", null, t(c.note)) : null
+      ) : null,
+      h("ul.format-grid", null, f.items.map(function (item) {
+        return h("li.format-card.is-" + item.status, null,
+          h("div.format-top", null, h("h3", null, t(item.name)), statusDot(item.status)),
+          h("ul.chips", null, item.facts.map(function (fact) { return h("li", null, t(fact)); })),
+          h("p", null, fill(item.text))
+        );
+      }))
+    ));
+  }
+
+  // Galeri dengan jendela besar. Esc atau klik di luar gambar untuk menutup.
+  function gallerySection() {
+    var g = patch.gallery;
+    if (!g || !g.items || !g.items.length) return null;
+    return h("section.section", { id: "gallery" },
+      sectionHead(null, g.title, g.text),
+      h("ul.gallery", null, g.items.map(function (item, index) {
+        return h("li", null,
+          h("button.shot", { type: "button", onClick: function () { openViewer(index); } },
+            h("img", { src: item.image, alt: t(item.caption), loading: "lazy", width: 1280, height: 720 }),
+            h("span.shot-cap", null, t(item.caption))
+          )
+        );
+      }))
+    );
+  }
+
+  function openViewer(start) {
+    var items = patch.gallery.items;
+    var index = start;
+    var img = h("img", { alt: "" });
+    var cap = h("p.viewer-cap");
+    var count = h("span.viewer-count");
+    function show(i) {
+      index = (i + items.length) % items.length;
+      img.src = items[index].image;
+      img.alt = t(items[index].caption);
+      cap.textContent = t(items[index].caption);
+      count.textContent = (index + 1) + " / " + items.length;
+    }
+    var dialog = h("dialog.viewer", { "aria-label": t(patch.gallery.title) },
+      h("div.viewer-bar", null,
+        count,
+        h("button.viewer-btn", { type: "button", "aria-label": t(ui.prev), onClick: function () { show(index - 1); } }, "←"),
+        h("button.viewer-btn", { type: "button", "aria-label": t(ui.next), onClick: function () { show(index + 1); } }, "→"),
+        h("button.viewer-btn", { type: "button", "aria-label": t(ui.close), onClick: function () { dialog.close(); } }, "✕")
+      ),
+      img,
+      cap
+    );
+    dialog.addEventListener("click", function (event) { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft") show(index - 1);
+      if (event.key === "ArrowRight") show(index + 1);
+    });
+    dialog.addEventListener("close", function () { dialog.parentNode.removeChild(dialog); });
+    document.body.appendChild(dialog);
+    show(start);
+    if (dialog.showModal) dialog.showModal();
+    else dialog.setAttribute("open", "");
+  }
+
+  function databaseSection() {
+    var d = patch.database;
+    if (!d) return null;
+    return h("section.section", { id: "database" },
+      sectionHead(null, d.title, d.text),
+      h("div.dbtable", { role: "table", "aria-label": t(d.title) },
+        h("div.db-row.db-headrow", { role: "row" },
+          h("span", { role: "columnheader" }, t(d.headers.label)),
+          h("span", { role: "columnheader" }, t(d.headers.original)),
+          h("span.is-now", { role: "columnheader" }, t(d.headers.now)),
+          h("span", { role: "columnheader" }, t(d.headers.limit))
+        ),
+        d.rows.map(function (row) {
+          var now = statValue(row.key);
+          var hasBar = typeof row.limit === "number" && typeof now === "number";
+          return h("div.db-row", { role: "row" },
+            h("span.db-label", { role: "rowheader" }, t(row.label)),
+            h("span.db-num", { role: "cell", "data-label": t(d.headers.original) }, typeof row.original === "number" ? number(row.original) : "-"),
+            h("span.db-num.is-now", { role: "cell", "data-label": t(d.headers.now) }, typeof now === "number" ? number(now) : "-"),
+            h("span.db-num", { role: "cell", "data-label": t(d.headers.limit) }, typeof row.limit === "number" ? number(row.limit) : "-"),
+            hasBar ? h("span.db-bar", { "aria-hidden": "true" },
+              typeof row.original === "number" ? h("i.db-bar-old", { style: "width:" + Math.min(100, row.original / row.limit * 100) + "%" }) : null,
+              h("i.db-bar-now", { style: "width:" + Math.min(100, now / row.limit * 100) + "%" })
+            ) : null
+          );
+        })
+      ),
+      h("p.db-legend", { "aria-hidden": "true" },
+        h("i.is-old", null, t(d.headers.original)),
+        h("i.is-now", null, t(d.headers.now)),
+        h("i.is-limit", null, t(d.headers.limit))
+      )
+    );
+  }
+
+  function leaguesSection() {
+    var l = patch.leagues;
+    var data = window.LEAGUES;
+    if (!l || !data || !data.regions) return null;
+    return h("div.band", null, h("section.section", { id: "leagues" },
+      sectionHead(null, l.title, l.text),
+      data.regions.map(function (region) {
+        return h("div.region", null,
+          h("h3.region-name", null, t(region.name), h("span", null, String(region.leagues.length))),
+          h("div.league-grid", null, region.leagues.map(function (league) {
+            return h("details.league" + (league.isNew ? ".is-new" : ""), null,
+              h("summary", null,
+                h("span.league-main", null,
+                  h("span.league-name", null, league.name),
+                  league.country ? h("span.league-country", null, t(league.country)) : null
+                ),
+                h("span.league-side", null,
+                  league.isNew ? h("span.league-new", null, t(l.isNew)) : null,
+                  h("span.league-count", null, number(league.clubs) + " " + t(l.clubs))
+                )
+              ),
+              h("div.league-body", null,
+                league.cups && league.cups.length ? h("p.league-cups", null, h("b", null, t(l.also) + ": "), league.cups.join(" · ")) : null,
+                h("ol.league-teams", null, league.teams.map(function (team) { return h("li", null, team); }))
+              )
+            );
+          }))
+        );
+      })
+    ));
+  }
+
+  function roadmapSection() {
+    var r = patch.roadmap;
+    if (!r) return null;
+    return h("section.section", { id: "roadmap" },
+      sectionHead(null, r.title, r.text),
+      h("ol.roadmap", null, r.items.map(function (item) {
+        return h("li.road.is-" + item.status, null,
+          h("div.road-top", null, h("h3", null, t(item.name)), statusDot(item.status)),
+          h("p", null, fill(item.text))
+        );
+      }))
+    );
+  }
+
   function patchPage() {
     document.title = "Dzerofour Patch | " + site.brand;
     return [
@@ -349,7 +549,8 @@
         )
       ),
       scoreboard(),
-      h("section.section", null,
+      jumpNav(),
+      h("section.section", { id: "modules" },
         h("div.patch-grid", null,
           h("div", null,
             h("h2.h-small", null, t(ui.modulesTitle)),
@@ -364,6 +565,11 @@
           )
         )
       ),
+      formatsSection(),
+      gallerySection(),
+      databaseSection(),
+      leaguesSection(),
+      roadmapSection(),
       h("section.section", { id: "updates" },
         h("div.section-head", null,
           h("div", null,
