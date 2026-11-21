@@ -23,7 +23,7 @@ window.PATCH = {
     { key: "teams", label: { id: "Tim", en: "Teams" } },
     { key: "competitions", label: { id: "Kompetisi", en: "Competitions" } },
     { key: "minifaces", label: { id: "Miniface", en: "Minifaces" } },
-    { key: "faces", label: { id: "Face", en: "Faces" } },
+    { key: "kits", label: { id: "Kit", en: "Kits" } },
     { key: "teamLogos", label: { id: "Logo tim", en: "Team logos" } }
   ],
 
@@ -78,8 +78,8 @@ window.PATCH = {
       status: "progress",
       percent: null,
       text: {
-        id: "Facepack klub Eropa: {facesEurope} face dari Premier League, Bundesliga, LaLiga, dan Serie A, dibuat dengan PES Face Toolkit dari FC 27 dan eFootball.",
-        en: "European clubs facepack: {facesEurope} faces from the Premier League, Bundesliga, LaLiga and Serie A, made with PES Face Toolkit from FC 27 and eFootball."
+        id: "Facepack klub dan timnas, dibuat dengan PES Face Toolkit dari FC 27 dan eFootball.",
+        en: "Club and national team facepacks, made with PES Face Toolkit from FC 27 and eFootball."
       }
     },
     {
@@ -174,7 +174,8 @@ window.PATCH = {
       { group: { id: "Turki", en: "Türkiye" }, items: ["Trendyol Süper Lig", "Ziraat Türkiye Kupası", "Turkcell Süper Kupa"] },
       { group: { id: "Belgia", en: "Belgium" }, items: ["Jupiler Pro League", "Croky Cup"] },
       { group: { id: "Skotlandia", en: "Scotland" }, items: ["William Hill Premiership", "Scottish Cup"] },
-      { group: { id: "Asia (antarklub)", en: "Asia (club)" }, items: ["AFC Champions League Two"] }
+      { group: { id: "Asia (antarklub)", en: "Asia (club)" }, items: ["AFC Champions League Two"] },
+      { group: { id: "Legenda", en: "Legends" }, items: ["Dzerofour Legends League", "Dzerofour Legends Cup", "Dzerofour Legends Super Cup"] }
     ],
     note: {
       id: "Juga diperbarui: MLS, Liga Profesional Argentina, Bundesliga, dan Liga MX di slot lama.",
