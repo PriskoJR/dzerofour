@@ -6,6 +6,102 @@
    ===================================================================== */
 window.UPDATES = [
   {
+    date: "2026-11-25",
+    tag: "Catalog ID",
+    text: {
+      id: "Menu baru Database ID hadir di website: daftar lengkap Nama Kompetisi, ID & Nama Tim, serta ID & Nama Pemain langsung dari database patch, dengan fitur pencarian dan salin.",
+      en: "New Database ID menu on the website: full list of Competition Names, Team IDs & Names, and Player IDs & Names straight from the patch database, with search and copy."
+    }
+  },
+  {
+    date: "2026-11-24",
+    tag: { id: "Miniface & Pelatih", en: "Minifaces & Coaches" },
+    text: {
+      id: "18.978 miniface pemain dari eFootball, FC 27, dan Transfermarkt (framing kepala Konami & AI cut-out MODNet) ditambah 546 foto pelatih berlatar abu-abu dan nama Jepang otomatis. 67 pemain dummy dihapus.",
+      en: "18,978 player minifaces from eFootball, FC 27 and Transfermarkt (Konami head framing & MODNet AI cut-out) plus 546 grey-background coach photos and auto Japanese names. 67 dummy players removed."
+    }
+  },
+  {
+    date: "2026-11-24",
+    tag: "PES DB Collector 3.0",
+    text: {
+      id: "PES DB Collector 3.0.0 rilis: tombol Download minifaces (Ctrl+Shift+K) di panel pojok, unduh massal zip miniface per klub atau foto pelatih di background, nama zip selalu rapi, dan Clear sekali tekan.",
+      en: "PES DB Collector 3.0.0 released: Download minifaces button (Ctrl+Shift+K) on the corner panel, background batch zip downloads per club or coach, clean zip filenames and one-click Clear."
+    }
+  },
+  {
+    date: "2026-11-24",
+    tag: "myClub Server",
+    text: {
+      id: "Server lokal myClub: batas frame 1.024 byte terpecahkan (multi-frame 0x70-0x72), GP & Coin 99.999.999, Top Agent untuk 27 liga patch, 62 scout ★5, lelang scout spesial klub/negara, dan Club Extension.",
+      en: "Local myClub server: 1,024-byte frame cap solved (0x70-0x72 multi-frame), 99,999,999 GP & Coins, Top Agents for all 27 patch leagues, 62 5★ scouts, special club/nation scout auctions and Club Extension."
+    }
+  },
+  {
+    date: "2026-11-23",
+    tag: "Exe v60 & PRIME Switch",
+    text: {
+      id: "Exe v60 & Dzerofour Launcher: tahun mulai Master League 2026/27, sakelar On/Off kompetisi PRIME, teks mode UCL 18 bahasa, jadwal MD7-8 UCL di bulan Januari, dan perbaikan nomor punggung 194 klub.",
+      en: "Exe v60 & Dzerofour Launcher: 2026/27 Master League start year, PRIME competitions On/Off switch, 18-language UCL mode texts, January UCL MD7-8 fixtures and shirt number fixes across 194 clubs."
+    }
+  },
+  {
+    date: "2026-11-23",
+    tag: "Sleeve Badges",
+    text: {
+      id: "Halaman Badge Editor & section .badges di exe: semua 90 slot kompetisi (liga, piala, super cup, turnamen timnas) kini punya slot sleeve badge lengan sendiri.",
+      en: "Badge Editor page & .badges exe section: all 90 competition slots (leagues, cups, super cups, national tournaments) now have their own dedicated sleeve badge slots."
+    }
+  },
+  {
+    date: "2026-11-23",
+    tag: { id: "Database & FC 27", en: "Database & FC 27" },
+    text: {
+      id: "Integrasi database EA SPORTS FC 27 dan FM Blog: pembaruan skuad, atribut pemain, skuad 8 timnas Asia/ASEAN, serta impor 432 pelatih musim ini dari gabungan Transfermarkt + eFootball + FC 27.",
+      en: "EA SPORTS FC 27 and FM Blog database integration: updated squads, player abilities, 8 Asian/ASEAN national squads, and 432 current-season coaches imported from Transfermarkt + eFootball + FC 27."
+    }
+  },
+  {
+    date: "2026-11-22",
+    tag: "Database Editor UI",
+    text: {
+      id: "Rombak UI Fase 4-6 selesai: halaman Home, Import Center terpusat (8 alur impor, 15 sumber), halaman Logos, Build & install terpadu, editor warna TeamColor, serta 2 slot khusus timnas (logo federasi & bendera).",
+      en: "UI Overhaul Phases 4-6 complete: Home dashboard, unified Import Center (8 flows, 15 sources), Logos page, unified Build & install, TeamColor editor, and dual national team slots (federation logo & flag)."
+    }
+  },
+  {
+    date: "2026-11-22",
+    tag: { id: "Kompetisi Timnas", en: "National Cups" },
+    text: {
+      id: "Copa América (16 tim, 4 grup), AFC Asian Cup (24 tim, 6 grup + 4 peringkat ketiga terbaik), dan Africa Cup of Nations (24 tim) berjalan di mode Cup. Musik walk-out semua klub (.clubbgm) juga aktif di exe.",
+      en: "Copa América (16 teams, 4 groups), AFC Asian Cup (24 teams, 6 groups + 4 best thirds) and Africa Cup of Nations (24 teams) run in Cup mode. Walk-out anthems for all clubs (.clubbgm) are also active in the exe."
+    }
+  },
+  {
+    date: "2026-11-21",
+    tag: "Carabao Cup",
+    text: {
+      id: "Carabao Cup (44 klub Premier League & Championship) hadir dengan kalender Rabu tersendiri dan terbukti berjalan di Master League. Konami Cup juga berhasil dipulihkan.",
+      en: "The Carabao Cup (44 Premier League & Championship clubs) joins with its own Wednesday calendar and is proven in Master League. The Konami Cup is restored too."
+    }
+  },
+  {
+    date: "2026-11-20",
+    tag: "FIFA World Cup & ASEAN",
+    text: {
+      id: "Piala Dunia 48 tim (12 grup tetap A-L, bagan 32 besar Annex C) dan FIFA ASEAN Cup (14 timnas, 2 grup isi 7, upacara trofi) lulus uji penuh sampai layar juara. Batas skuad timnas dinaikkan ke 26 pemain.",
+      en: "The 48-team FIFA World Cup (12 fixed groups A-L, Annex C round of 32) and FIFA ASEAN Cup (14 national teams, two groups of 7, trophy ceremony) pass full testing to the winner screen. National squads expanded to 26 players."
+    }
+  },
+  {
+    date: "2026-11-16",
+    tag: "Dzerofour Legends",
+    text: {
+      id: "Dzerofour Legends League, Cup, dan Super Cup (30 tim): 22 Prime Team bersejarah (1962-2020) dan 8 Fantasy Team, ditambah bersih-bersih database Fase 1.",
+      en: "Dzerofour Legends League, Cup and Super Cup (30 teams): 22 historic Prime Teams (1962-2020) and 8 Fantasy Teams, plus Phase 1 database clean-up."
+    }
+  },
+  {
     date: "2026-11-15",
     tag: "Face Toolkit",
     text: {

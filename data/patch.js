@@ -30,11 +30,11 @@ window.PATCH = {
   modules: [
     {
       name: "Database",
-      status: "progress",
+      status: "done",
       percent: null,
       text: {
-        id: "Musim 2026/27: {players} pemain, {teams} tim, dan {coaches} pelatih. Skuad dari eFootball, Transfermarkt, dan Football Manager.",
-        en: "Season 2026/27: {players} players, {teams} teams and {coaches} coaches. Squads from eFootball, Transfermarkt and Football Manager."
+        id: "Musim 2026/27: {players} pemain, {teams} tim, dan {coaches} pelatih (bebas pemain dummy). Skuad dan atribut dari eFootball, EA SPORTS FC 27, Transfermarkt, dan Football Manager.",
+        en: "Season 2026/27: {players} players, {teams} teams and {coaches} coaches (dummy-free). Squads and abilities from eFootball, EA SPORTS FC 27, Transfermarkt and Football Manager."
       }
     },
     {
@@ -48,29 +48,29 @@ window.PATCH = {
     },
     {
       name: { id: "Kompetisi baru", en: "New competitions" },
-      status: "progress",
+      status: "done",
       percent: null,
       text: {
-        id: "{competitions} kompetisi, {newCompetitions} di antaranya baru. Liga, piala, dan super cup baru sudah berjalan di League Mode. Master League sedang dikerjakan.",
-        en: "{competitions} competitions, {newCompetitions} of them new. The new leagues, cups and super cups already run in League Mode. Master League is next."
+        id: "{competitions} kompetisi, {newCompetitions} di antaranya baru. Liga, piala, super cup baru, Carabao Cup, FIFA ASEAN Cup, dan Dzerofour Legends League sudah berjalan di game.",
+        en: "{competitions} competitions, {newCompetitions} of them new. The new leagues, cups, super cups, Carabao Cup, FIFA ASEAN Cup and Dzerofour Legends League all run in the game."
       }
     },
     {
       name: { id: "Regulasi", en: "Regulations" },
-      status: "progress",
+      status: "done",
       percent: null,
       text: {
-        id: "UEFA Champions League format 36 klub sudah dimainkan dari undian sampai juara, dan Europa League ikut format 36 klub. AFC Champions League Elite, ACL Two, dan FIFA Club World Cup 32 klub berjalan di League Mode.",
-        en: "The 36-club UEFA Champions League has been played from the draw to the final, and the Europa League follows the same 36-club format. AFC Champions League Elite, ACL Two and the 32-club FIFA Club World Cup run in League Mode."
+        id: "UCL & UEL 36 klub (MD7-8 Januari), Piala Dunia 48 tim (32 besar Annex C), Piala Asia & AFCON 24 tim, Copa América 16 tim (fase grup), FIFA ASEAN Cup 14 tim, ACL Elite/Two, dan CWC 32 klub.",
+        en: "36-club UCL & UEL (Jan MD7-8), 48-team World Cup (Annex C round of 32), 24-team Asian Cup & AFCON, 16-team Copa América (group stage), 14-team FIFA ASEAN Cup, ACL Elite/Two and 32-club CWC."
       }
     },
     {
       name: "Miniface",
-      status: "progress",
+      status: "done",
       percent: null,
       text: {
-        id: "{minifaces} miniface pemain sudah masuk.",
-        en: "{minifaces} player minifaces added so far."
+        id: "{minifaces} miniface pemain dari eFootball, FC 27, dan Transfermarkt (framing kepala Konami & AI cut-out), ditambah 546 foto pelatih berlatar seragam.",
+        en: "{minifaces} player minifaces from eFootball, FC 27 and Transfermarkt (Konami head framing & AI cut-out), plus 546 coach photos."
       }
     },
     {
@@ -92,21 +92,21 @@ window.PATCH = {
       }
     },
     {
-      name: "Logo",
-      status: "progress",
+      name: { id: "Logo & Badge", en: "Logos & Badges" },
+      status: "done",
       percent: null,
       text: {
-        id: "Logo {teamLogos} tim dan {competitionLogos} kompetisi.",
-        en: "Logos for {teamLogos} teams and {competitionLogos} competitions."
+        id: "Logo {teamLogos} tim (termasuk logo federasi & bendera timnas), {competitionLogos} kompetisi, dan 90 slot sleeve badge lengan untuk semua liga dan piala.",
+        en: "Logos for {teamLogos} teams (including national federation logos & flags), {competitionLogos} competitions, and 90 sleeve badge slots across all leagues and cups."
       }
     },
     {
       name: { id: "Bahasa", en: "Language" },
-      status: "progress",
+      status: "done",
       percent: null,
       text: {
-        id: "Nama resmi dan sponsor 2026/27 untuk semua kompetisi, di 18 bahasa game. {languages} paket bahasa dan region.",
-        en: "Official 2026/27 names and sponsors for every competition, in all 18 game languages. {languages} language and region packs."
+        id: "Nama resmi dan sponsor 2026/27 untuk semua kompetisi serta teks fase liga UCL/UEL baru di 18 bahasa game ({languages} paket bahasa dan region).",
+        en: "Official 2026/27 names and sponsors for every competition plus new UCL/UEL league-phase texts across all 18 game languages ({languages} language and region packs)."
       }
     },
     {
@@ -114,8 +114,8 @@ window.PATCH = {
       status: "progress",
       percent: null,
       text: {
-        id: "Tampilan menu baru sedang disiapkan dengan PES HUD Editor.",
-        en: "A new menu look is being prepared with PES HUD Editor."
+        id: "Tampilan menu baru dengan PES HUD Editor (section .hudmf sudah terintegrasi di exe) dan warna header menu TeamColor untuk seluruh tim.",
+        en: "New menu look with PES HUD Editor (.hudmf section integrated into the exe) and TeamColor menu header colours for every team."
       }
     },
     {
@@ -137,21 +137,21 @@ window.PATCH = {
       }
     },
     {
-      name: { id: "Mode online", en: "Online mode" },
-      status: "planned",
-      percent: null,
-      text: {
-        id: "Team Lobby dan myClub lewat server sendiri. Login dan pembuatan tim myClub sudah berhasil di tahap riset.",
-        en: "Team Lobby and myClub on our own server. Signing in and creating a myClub team already work in research."
-      }
-    },
-    {
-      name: "Executable",
+      name: { id: "Mode online & myClub", en: "Online & myClub" },
       status: "progress",
       percent: null,
       text: {
-        id: "Exe Dzerofour membawa kapasitas baru, kompetisi baru, dan regulasi baru. Dikemas final menjelang rilis.",
-        en: "The Dzerofour exe carries the new capacity, competitions and regulations. Final packaging comes closer to release."
+        id: "Server lokal myClub berjalan: tutorial penuh, GP/Coin 99.999.999, Top Agent 27 liga, 62 scout ★5, lelang scout spesial klub/negara, dan Club Extension.",
+        en: "Local myClub server running: full tutorial, 99,999,999 GP/Coins, Top Agents for 27 leagues, 62 5★ scouts, special club/nation scout auctions and Club Extension."
+      }
+    },
+    {
+      name: "Executable & Launcher",
+      status: "done",
+      percent: null,
+      text: {
+        id: "Exe Dzerofour v60: kapasitas baru, regulasi klub & timnas, tahun mulai ML 2026/27, musik walk-out semua klub (.clubbgm), sleeve badge (.badges), dan sakelar PRIME On/Off di Launcher.",
+        en: "Dzerofour exe v60: new capacity, club & national rules, ML start year 2026/27, club walk-out anthems (.clubbgm), sleeve badges (.badges) and a PRIME On/Off switch in the Launcher."
       }
     }
   ],
@@ -161,12 +161,12 @@ window.PATCH = {
   competitionsList: {
     title: { id: "{newCompetitions} kompetisi baru", en: "{newCompetitions} new competitions" },
     text: {
-      id: "Dulu dianggap mustahil. Kini liga, piala, dan super cup dari Asia dan Eropa hadir lengkap dengan jadwal, klub, dan pialanya.",
-      en: "It was once thought impossible. Now leagues, cups and super cups from Asia and Europe arrive with their own fixtures, clubs and trophies."
+      id: "Dulu dianggap mustahil. Kini liga, piala, dan super cup dari Asia, Eropa, dan ASEAN hadir lengkap dengan jadwal, klub, dan pialanya.",
+      en: "It was once thought impossible. Now leagues, cups and super cups from Asia, Europe and ASEAN arrive with their own fixtures, clubs and trophies."
     },
     items: [
       { group: { id: "Jepang", en: "Japan" }, items: ["Meiji Yasuda J1 League", "Meiji Yasuda J2 League", "J.League YBC Levain Cup", "FUJIFILM Super Cup"] },
-      { group: "Indonesia", items: ["BRI Super League", "Pegadaian Championship"] },
+      { group: "Indonesia", items: ["BRI Super League", "Pegadaian Championship", "Piala Indonesia", "Piala Presiden"] },
       { group: { id: "Arab Saudi", en: "Saudi Arabia" }, items: ["ROSHN Saudi League", "King's Cup", "Saudi Super Cup"] },
       { group: { id: "Korea Selatan", en: "South Korea" }, items: ["Hana Bank K League 1", "Hana Bank Korea Cup", "K League Super Cup"] },
       { group: "Thailand", items: ["Thai League 1", "Chang FA Cup", "Thailand Champions Cup"] },
@@ -174,12 +174,13 @@ window.PATCH = {
       { group: { id: "Turki", en: "Türkiye" }, items: ["Trendyol Süper Lig", "Ziraat Türkiye Kupası", "Turkcell Süper Kupa"] },
       { group: { id: "Belgia", en: "Belgium" }, items: ["Jupiler Pro League", "Croky Cup"] },
       { group: { id: "Skotlandia", en: "Scotland" }, items: ["William Hill Premiership", "Scottish Cup"] },
-      { group: { id: "Asia (antarklub)", en: "Asia (club)" }, items: ["AFC Champions League Two"] },
-      { group: { id: "Legenda", en: "Legends" }, items: ["Dzerofour Legends League", "Dzerofour Legends Cup", "Dzerofour Legends Super Cup"] }
+      { group: { id: "Inggris", en: "England" }, items: ["Carabao Cup"] },
+      { group: { id: "Asia & ASEAN", en: "Asia & ASEAN" }, items: ["AFC Champions League Two", "FIFA ASEAN Cup"] },
+      { group: { id: "Legenda & Fantasi", en: "Legends & Fantasy" }, items: ["Dzerofour Legends League", "Dzerofour Legends Cup", "Dzerofour Legends Super Cup"] }
     ],
     note: {
-      id: "Juga diperbarui: MLS, Liga Profesional Argentina, Bundesliga, dan Liga MX di slot lama.",
-      en: "Also updated: MLS, Argentina's Liga Profesional, the Bundesliga and Liga MX in existing slots."
+      id: "Juga diperbarui: Piala Dunia 48 tim, Piala Asia & AFCON 24 tim, Copa América 16 tim, MLS, Liga Profesional Argentina, Bundesliga, dan Liga MX.",
+      en: "Also updated: 48-team World Cup, 24-team Asian Cup & AFCON, 16-team Copa América, MLS, Argentina's Liga Profesional, the Bundesliga and Liga MX."
     }
   },
 
@@ -213,38 +214,50 @@ window.PATCH = {
       {
         name: "UEFA Champions League",
         status: "done",
-        facts: [{ id: "36 klub", en: "36 clubs" }, { id: "8 laga", en: "8 matches" }, { id: "Play-off 9-24", en: "Play-offs 9-24" }, { id: "Pot resmi 2026/27", en: "Official 2026/27 pots" }],
-        text: { id: "Dimainkan penuh dari undian sampai juara di mode UCL, tanpa crash. Master League juga sudah memakai format ini.", en: "Played in full from the draw to the final in UCL mode, with no crashes. Master League uses the format too." }
+        facts: [{ id: "36 klub", en: "36 clubs" }, { id: "8 laga (MD7-8 Jan)", en: "8 matches (Jan MD7-8)" }, { id: "Play-off 9-24", en: "Play-offs 9-24" }, { id: "18 bahasa", en: "18 languages" }],
+        text: { id: "Dimainkan penuh dari undian sampai juara di mode UCL dan Master League, dengan kalender Januari resmi dan teks fase liga di 18 bahasa.", en: "Played in full from the draw to the final in UCL mode and Master League, with the official January matchdays and league-phase texts in 18 languages." }
       },
       {
         name: "UEFA Europa League",
         status: "done",
         facts: [{ id: "36 klub", en: "36 clubs" }, { id: "Satu tabel", en: "One table" }, { id: "Play-off 9-24", en: "Play-offs 9-24" }],
-        text: { id: "Dari 48 slot dan 12 grup menjadi format baru 36 klub. Undian, jadwal, dan klasemen sudah terbukti di game.", en: "From 48 slots and 12 groups to the new 36-club format. The draw, fixtures and table work in the game." }
+        text: { id: "Dari 48 slot dan 12 grup menjadi format baru 36 klub. Undian, jadwal, dan klasemen sudah terbukti di mode UEL, League Mode, dan Master League.", en: "From 48 slots and 12 groups to the new 36-club format. Draw, fixtures and table proven across UEL mode, League Mode and Master League." }
       },
       {
-        name: "AFC Champions League Elite",
-        status: "progress",
-        facts: [{ id: "32 klub", en: "32 clubs" }, { id: "West 16 + East 16", en: "West 16 + East 16" }, { id: "8 laga", en: "8 matches" }],
-        text: { id: "Fase liga per wilayah dengan pot resmi 2026/27, tanpa lawan senegara. Berjalan di League Mode.", en: "A league phase per region with the official 2026/27 pots and no same-country ties. Runs in League Mode." }
-      },
-      {
-        name: "AFC Champions League Two",
-        status: "progress",
-        facts: [{ id: "Kompetisi baru", en: "New competition" }, { id: "32 klub", en: "32 clubs" }, { id: "8 grup + knockout", en: "8 groups + knockouts" }],
-        text: { id: "Tidak ada di PES 2017 asli. Grup A-D untuk West dan E-H untuk East, berjalan di League Mode.", en: "Not in the original PES 2017. Groups A-D for the West and E-H for the East, running in League Mode." }
-      },
-      {
-        name: "FIFA Club World Cup",
-        status: "progress",
-        facts: [{ id: "32 klub", en: "32 clubs" }, { id: "8 grup isi 4", en: "8 groups of 4" }, { id: "Juni-Juli", en: "June-July" }],
-        text: { id: "Dari 4 klub sistem gugur menjadi 32 klub seperti format 2025. Undian dan laga grup sudah berjalan.", en: "From a 4-club knockout to 32 clubs like the 2025 format. The draw and group games already run." }
-      },
-      {
-        name: { id: "Liga 30 klub", en: "30-club leagues" },
+        name: "FIFA World Cup 2026",
         status: "done",
-        facts: ["MLS", { id: "Liga Argentina", en: "Argentine league" }, { id: "29 matchday", en: "29 matchdays" }],
-        text: { id: "Liga berisi 30 klub yang saling bertemu sekali. Mesinnya sudah terbukti di League Mode dan Master League.", en: "Leagues of 30 clubs that meet once each. Proven in League Mode and Master League." }
+        facts: [{ id: "48 timnas", en: "48 national teams" }, { id: "12 grup tetap", en: "12 fixed groups" }, { id: "32 besar Annex C", en: "Annex C round of 32" }],
+        text: { id: "48 timnas dengan skuad 23-26 pemain, 12 grup asli A-L, dan bagan 32 besar FIFA (495 kombinasi 8 peringkat ketiga terbaik). Lolos penuh sampai juara.", en: "48 national teams with 23-26 player squads, the 12 official groups A-L, and FIFA's round of 32 bracket (495 best-third combinations). Played in full to the trophy." }
+      },
+      {
+        name: "AFC Asian Cup & AFCON",
+        status: "done",
+        facts: [{ id: "24 timnas", en: "24 national teams" }, { id: "6 grup × 4", en: "6 groups of 4" }, { id: "4 peringkat 3 terbaik", en: "4 best third-placed" }],
+        text: { id: "Piala Asia dan Piala Afrika naik ke format resmi 24 timnas: 6 grup, juara + runner-up + 4 peringkat ketiga terbaik lolos ke 16 besar.", en: "The Asian Cup and Africa Cup of Nations upgraded to the official 24-team format: 6 groups, with winners, runners-up and 4 best thirds advancing to the round of 16." }
+      },
+      {
+        name: "Copa América & FIFA ASEAN Cup",
+        status: "done",
+        facts: [{ id: "Copa 16 tim (4 grup)", en: "Copa 16 teams (4 groups)" }, { id: "ASEAN 14 tim (2×7)", en: "ASEAN 14 teams (2×7)" }],
+        text: { id: "Copa América kini memakai fase 4 grup × 4 sebelum perempat final. FIFA ASEAN Cup hadir dengan 14 timnas dalam 2 grup isi 7, semifinal silang, sampai upacara trofi.", en: "Copa América now features a 4×4 group stage before the quarter-finals. The FIFA ASEAN Cup debuts with 14 national teams in two groups of 7, cross semi-finals and a trophy ceremony." }
+      },
+      {
+        name: "AFC Champions League Elite & Two",
+        status: "done",
+        facts: [{ id: "ACLE 32 klub (West/East)", en: "ACLE 32 clubs (West/East)" }, { id: "ACL Two 8 grup", en: "ACL Two 8 groups" }],
+        text: { id: "ACL Elite memakai fase liga per wilayah dengan pot resmi 2026/27. ACL Two hadir sebagai kompetisi baru 32 klub (Grup A-D West, E-H East) sampai babak gugur.", en: "ACL Elite uses a regional league phase with official 2026/27 pots. ACL Two arrives as a new 32-club competition (Groups A-D West, E-H East) through the knockouts." }
+      },
+      {
+        name: "FIFA Club World Cup & Carabao Cup",
+        status: "done",
+        facts: [{ id: "CWC 32 klub (8 grup)", en: "CWC 32 clubs (8 groups)" }, { id: "Carabao 44 klub Inggris", en: "Carabao 44 English clubs" }],
+        text: { id: "Club World Cup 32 klub dengan regulasi mandiri (Konami Cup dipulihkan). Carabao Cup hadir sebagai piala kedua Inggris untuk 44 klub Premier League & Championship.", en: "32-club Club World Cup on its own regulations (Konami Cup restored). The Carabao Cup joins as England's second domestic cup for all 44 Premier League & Championship clubs." }
+      },
+      {
+        name: { id: "Liga 30 klub & PRIME Switch", en: "30-club leagues & PRIME Switch" },
+        status: "done",
+        facts: ["MLS", { id: "Liga Argentina", en: "Argentine league" }, { id: "Dzerofour Legends (22 Prime + 8 Fantasy)", en: "Dzerofour Legends (22 Prime + 8 Fantasy)" }],
+        text: { id: "Liga 30 klub satu putaran (29 pekan). Dzerofour Legends League membawa 22 Prime Team bersejarah (1962-2020) dan 8 Fantasy Team, dengan sakelar On/Off di Launcher.", en: "Single-round 30-club leagues (29 matchdays). Dzerofour Legends League brings 22 historic Prime Teams (1962-2020) and 8 Fantasy Teams, with a Launcher On/Off switch." }
       }
     ]
   },
@@ -301,14 +314,12 @@ window.PATCH = {
   roadmap: {
     title: { id: "Berikutnya", en: "Coming next" },
     items: [
-      { status: "progress", name: { id: "Master League untuk liga baru", en: "Master League for the new leagues" }, text: { id: "Liga Asia, Eropa, dan Pegadaian Championship sudah lolos League Mode. Berikutnya Exhibition, Master League, dan musim kedua.", en: "The Asian and European leagues and the Pegadaian Championship pass League Mode. Exhibition, Master League and the second season are next." } },
-      { status: "progress", name: { id: "Knockout ACL Elite & Club World Cup", en: "ACL Elite & Club World Cup knockouts" }, text: { id: "Fase grup dan fase liga sudah berjalan. Babak gugur sedang diuji.", en: "The group and league phases run. The knockout rounds are being tested." } },
-      { status: "progress", name: { id: "Selebrasi baru", en: "New celebrations" }, text: { id: "Target lebih dari 500 selebrasi tanpa menghapus 122 selebrasi bawaan.", en: "Aiming for 500+ celebrations without removing the 122 stock ones." } },
-      { status: "planned", name: "Copa Sudamericana & Recopa", text: { id: "Kompetisi tersembunyi Konami yang paling siap dipulihkan berikutnya.", en: "The next of Konami's hidden competitions ready to be restored." } },
-      { status: "planned", name: { id: "Fase grup Levain Cup & J3 League", en: "Levain Cup group stage & J3 League" }, text: { id: "Melengkapi keluarga J-League.", en: "Completing the J-League family." } },
-      { status: "planned", name: { id: "Piala Dunia 48 tim", en: "48-team World Cup" }, text: { id: "Data 48 tim dan 12 grup sudah ada. Masih menunggu patch exe untuk grup I-L.", en: "The 48-team, 12-group data is ready. Groups I-L still need an exe patch." } },
-      { status: "planned", name: { id: "Musik dan chant per tim", en: "Team music and chants" }, text: { id: "Lagu walk-out dan chant suporter per klub lewat PES Audio Editor.", en: "Walk-out music and fan chants per club through PES Audio Editor." } },
-      { status: "planned", name: { id: "Mode online & launcher", en: "Online mode & launcher" }, text: { id: "Team Lobby dan myClub lewat server sendiri, nanti dimuat dari launcher Dzerofour.", en: "Team Lobby and myClub on our own server, later loaded from a Dzerofour launcher." } }
+      { status: "progress", name: { id: "Uji penuh Master League oleh tim tester", en: "Full Master League testing by the tester team" }, text: { id: "Exe v60 sudah membawa tahun mulai 2026/27, perbaikan kategori klub Asia, dan sakelar PRIME. Tim tester sedang menguji lintas musim, promosi/degradasi, dan kalender timnas.", en: "Exe v60 brings the 2026/27 start year, Asian club category fixes and the PRIME switch. The tester team is verifying multi-season runs, promotion/relegation and national team calendars." } },
+      { status: "progress", name: { id: "Server lokal myClub: Match & Loan Contract", en: "Local myClub server: Match & Loan Contract" }, text: { id: "Tutorial, GP/Coin unlimited, Top Agent 27 liga, 62 scout ★5, lelang scout spesial klub/negara, dan Club Extension sudah jalan. Berikutnya Loan Contract, Hire Manager, dan laga VS COM / Divisions.", en: "The tutorial, unlimited GP/Coins, 27-league Top Agents, 62 5★ scouts, special club/nation auctions and Club Extension work. Next up: Loan Contracts, Hire Manager and VS COM / Divisions matches." } },
+      { status: "progress", name: { id: "Musik walk-out & chant per klub", en: "Club walk-out music & chants" }, text: { id: "Section .clubbgm di exe sudah membuka anthem walk-out untuk semua tim kandang. Pengisian lagu dan chant suporter dilanjutkan lewat PES Audio Editor.", en: "The .clubbgm exe section unlocks walk-out anthems for every home team. Adding club songs and fan chants continues through PES Audio Editor." } },
+      { status: "progress", name: { id: "Selebrasi baru", en: "New celebrations" }, text: { id: "Target lebih dari 500 selebrasi dari eFootball tanpa menghapus 122 selebrasi bawaan.", en: "Aiming for 500+ celebrations from eFootball without removing the 122 stock ones." } },
+      { status: "planned", name: { id: "2. Bundesliga & Liga Super China", en: "2. Bundesliga & Chinese Super League" }, text: { id: "Cita-cita ekspansi berikutnya setelah slot daftar tim tambahan dan data skuad siap.", en: "Future expansion goals once additional team-list slots and squad data are ready." } },
+      { status: "planned", name: { id: "Trofi & cutscene per kompetisi", en: "Per-competition trophies & cutscenes" }, text: { id: "Pemetaan jenis laga dan slot HUD/cutscene agar semakin banyak turnamen memiliki upacara trofi khusus.", en: "Match-type and HUD/cutscene slot mapping so more tournaments get their own trophy ceremonies." } }
     ]
   }
 };

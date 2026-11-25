@@ -30,6 +30,7 @@ window.SITE = {
   ui: {
     navHome: "Home",
     navPatch: "Dzerofour Patch",
+    navDatabase: "Database ID",
     navTools: "Tools",
     navContact: { id: "Kontak", en: "Contact" },
     menu: "Menu",
@@ -55,6 +56,8 @@ window.SITE = {
     modes: { id: "Mode kerja", en: "Work modes" },
     features: { id: "Fitur", en: "Features" },
     requirements: { id: "Yang dibutuhkan", en: "What you need" },
+    previews: { id: "Pratinjau aplikasi", en: "App previews" },
+    previewsSub: { id: "Klik gambar untuk memperbesar dan melihat setiap halaman aplikasi.", en: "Click any screenshot to enlarge and explore each page of the app." },
     versions: { id: "Riwayat versi", en: "Version history" },
     otherTools: { id: "Tool lainnya", en: "Other tools" },
 
@@ -90,6 +93,28 @@ window.SITE = {
     },
     waBuy: { id: "Halo Prisko, saya mau beli", en: "Hi Prisko, I would like to buy" },
     waAsk: { id: "Halo Prisko, saya mau tanya tentang", en: "Hi Prisko, I have a question about" },
-    waHello: { id: "Halo Prisko, saya mau tanya.", en: "Hi Prisko, I have a question." }
+    waHello: { id: "Halo Prisko, saya mau tanya.", en: "Hi Prisko, I have a question." },
+
+    dbKicker: { id: "Katalog ID · Dzerofour Patch", en: "ID Catalog · Dzerofour Patch" },
+    dbTitle: { id: "Database ID Tim & Pemain", en: "Team & Player ID Database" },
+    dbIntro: {
+      id: "Daftar lengkap Kompetisi, ID & Nama Tim, serta ID & Nama Pemain di Dzerofour Patch. Cari dengan Nama atau ID, lalu klik tombol salin atau teksnya untuk menyalin.",
+      en: "Complete list of Competitions, Team IDs & Names, and Player IDs & Names in Dzerofour Patch. Search by Name or ID, then click any copy button or item to copy."
+    },
+    dbSearchPlaceholder: { id: "Cari nama atau ID tim / pemain (contoh: Arsenal, 101, Messi, 7511)...", en: "Search team or player name or ID (e.g. Arsenal, 101, Messi, 7511)..." },
+    dbSearchBtn: { id: "Cari", en: "Search" },
+    dbClearBtn: { id: "Reset", en: "Clear" },
+    dbFilterAll: { id: "Semua", en: "All" },
+    dbTeamsCount: { id: "tim", en: "teams" },
+    dbPlayersCount: { id: "pemain", en: "players" },
+    dbCompsCount: { id: "kompetisi", en: "competitions" },
+    dbCopyId: { id: "Salin ID", en: "Copy ID" },
+    dbCopyName: { id: "Salin Nama", en: "Copy Name" },
+    dbCopied: { id: "Disalin", en: "Copied" },
+    dbNoResult: { id: "Tidak ada tim atau pemain yang cocok dengan pencarian ini.", en: "No teams or players matched your search." },
+    dbSearchSummary: { id: "Hasil pencarian", en: "Search results" },
+    dbMatchingPlayers: { id: "pemain cocok", en: "matching players" },
+    dbShowAllPlayers: { id: "Tampilkan semua pemain tim ini", en: "Show all players in this team" },
+    dbCTA: { id: "Buka Katalog Database ID", en: "Open Database ID Catalog" }
   }
 };

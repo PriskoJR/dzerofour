@@ -41,6 +41,10 @@
       var value = props[key];
       if (value === null || value === undefined) return;
       if (key === "onClick") node.addEventListener("click", value);
+      else if (key === "onToggle") node.addEventListener("toggle", value);
+      else if (key === "onInput") node.addEventListener("input", value);
+      else if (key === "onKeydown") node.addEventListener("keydown", value);
+      else if (key === "onSubmit") node.addEventListener("submit", value);
       else if (key === "style") node.setAttribute("style", value);
       else if (key in node && key !== "list") node[key] = value;
       else node.setAttribute(key, value);
@@ -89,9 +93,10 @@
 
   function toolHref(item) { return "tool.html?id=" + encodeURIComponent(item.id); }
 
-  // Tool yang sudah rilis selalu di depan.
+  // Tool yang sudah rilis selalu di depan; yang disembunyikan (hidden: true) dilewati.
   function sortedProducts() {
-    return products.filter(isReleased).concat(products.filter(function (p) { return !isReleased(p); }));
+    var visible = products.filter(function (p) { return !p.hidden; });
+    return visible.filter(isReleased).concat(visible.filter(function (p) { return !isReleased(p); }));
   }
 
   /* ---------- Bagian yang sama di semua halaman ---------- */
@@ -100,6 +105,7 @@
     var links = h("nav.nav-links", { id: "nav-links" },
       h("a", { href: "index.html" }, t(ui.navHome)),
       h("a", { href: "patch.html" }, t(ui.navPatch)),
+      h("a", { href: "database.html" }, t(ui.navDatabase || "Database ID")),
       h("a", { href: "index.html#tools" }, t(ui.navTools)),
       h("a", { href: "#contact" }, t(ui.navContact))
     );
@@ -223,13 +229,17 @@
   function toolCard(item) {
     var released = isReleased(item);
     var media = item.image
-      ? h("img", { src: item.image, alt: item.imageAlt || item.name, loading: "lazy" })
+      ? [
+          h("img", { src: item.image, alt: item.imageAlt || item.name, loading: "lazy" }),
+          item.icon ? h("span.card-app-icon", null, h("img", { src: item.icon, alt: "", width: 38, height: 38 })) : null
+        ]
       : h("span.card-icon", null, h("img", { src: item.icon, alt: "" }));
 
     return h("a.tool-card" + (released ? ".is-released" : ""), { href: toolHref(item) },
       h("span.card-media", null, media),
       h("span.card-body", null,
         h("span.card-top", null,
+          item.icon ? h("img.card-inline-icon", { src: item.icon, alt: "", width: 26, height: 26 }) : null,
           h("span.card-no", null, "#" + item.no),
           badge(item.status),
           item.version ? h("span.card-version", null, item.version) : null
@@ -251,6 +261,7 @@
           h("p.home-text", null, fill(patch.intro)),
           h("div.cta", null,
             h("a.btn.btn-primary", { href: "patch.html" }, t(site.home.ctaPatch)),
+            h("a.btn.btn-ghost", { href: "database.html" }, t(ui.dbCTA || "Database ID")),
             h("a.btn.btn-ghost", { href: "#tools" }, t(site.home.ctaTools))
           )
         ),
@@ -390,7 +401,7 @@
       sectionHead(null, g.title, g.text),
       h("ul.gallery", null, g.items.map(function (item, index) {
         return h("li", null,
-          h("button.shot", { type: "button", onClick: function () { openViewer(index); } },
+          h("button.shot", { type: "button", onClick: function () { openViewer(g.items, index, t(g.title)); } },
             h("img", { src: item.image, alt: t(item.caption), loading: "lazy", width: 1280, height: 720 }),
             h("span.shot-cap", null, t(item.caption))
           )
@@ -399,9 +410,9 @@
     );
   }
 
-  function openViewer(start) {
-    var items = patch.gallery.items;
-    var index = start;
+  function openViewer(items, start, label) {
+    if (!items || !items.length) return;
+    var index = start || 0;
     var img = h("img", { alt: "" });
     var cap = h("p.viewer-cap");
     var count = h("span.viewer-count");
@@ -412,11 +423,11 @@
       cap.textContent = t(items[index].caption);
       count.textContent = (index + 1) + " / " + items.length;
     }
-    var dialog = h("dialog.viewer", { "aria-label": t(patch.gallery.title) },
+    var dialog = h("dialog.viewer", { "aria-label": label || "" },
       h("div.viewer-bar", null,
         count,
-        h("button.viewer-btn", { type: "button", "aria-label": t(ui.prev), onClick: function () { show(index - 1); } }, "←"),
-        h("button.viewer-btn", { type: "button", "aria-label": t(ui.next), onClick: function () { show(index + 1); } }, "→"),
+        items.length > 1 ? h("button.viewer-btn", { type: "button", "aria-label": t(ui.prev), onClick: function () { show(index - 1); } }, "←") : null,
+        items.length > 1 ? h("button.viewer-btn", { type: "button", "aria-label": t(ui.next), onClick: function () { show(index + 1); } }, "→") : null,
         h("button.viewer-btn", { type: "button", "aria-label": t(ui.close), onClick: function () { dialog.close(); } }, "✕")
       ),
       img,
@@ -429,7 +440,7 @@
     });
     dialog.addEventListener("close", function () { dialog.parentNode.removeChild(dialog); });
     document.body.appendChild(dialog);
-    show(start);
+    show(index);
     if (dialog.showModal) dialog.showModal();
     else dialog.setAttribute("open", "");
   }
@@ -465,6 +476,9 @@
         h("i.is-old", null, t(d.headers.original)),
         h("i.is-now", null, t(d.headers.now)),
         h("i.is-limit", null, t(d.headers.limit))
+      ),
+      h("div.cta", null,
+        h("a.btn.btn-primary", { href: "database.html" }, t(ui.dbCTA || "Buka Katalog Database ID") + " →")
       )
     );
   }
@@ -607,9 +621,35 @@
     return h("div.detail-info.cols-" + columns.length, null, columns);
   }
 
+  function toolPreviewsSection(item) {
+    if (item.previews && item.previews.length) {
+      return h("div.tool-previews", null,
+        h("div.tool-previews-head", null,
+          h("h2.h-small", null, t(ui.previews || "Pratinjau aplikasi") + " (" + item.previews.length + ")"),
+          h("p.tool-previews-sub", null, t(ui.previewsSub))
+        ),
+        h("ul.tool-preview-grid", null, item.previews.map(function (shot, idx) {
+          return h("li", null,
+            h("button.shot.tool-shot", {
+              type: "button",
+              onClick: function () { openViewer(item.previews, idx, item.name); }
+            },
+              h("img", { src: shot.image, alt: t(shot.caption) || item.name, loading: "lazy" }),
+              shot.caption ? h("span.shot-cap", null, t(shot.caption)) : null
+            )
+          );
+        }))
+      );
+    }
+    if (item.screenshot) {
+      return h("figure.detail-shot", null, h("img", { src: item.screenshot, alt: item.screenshotAlt || item.name, loading: "lazy" }));
+    }
+    return null;
+  }
+
   function toolPage() {
     var id = new URLSearchParams(location.search).get("id");
-    var item = products.filter(function (p) { return p.id === id; })[0];
+    var item = products.filter(function (p) { return p.id === id && !p.hidden; })[0];
     if (!item) {
       document.title = t(ui.notFound) + " | " + site.brand;
       return h("section.section.page-top", null,
@@ -620,18 +660,31 @@
     document.title = item.name + " | " + site.brand;
 
     var others = sortedProducts().filter(function (p) { return p.id !== item.id; });
+    var heroShots = item.previews && item.previews.length
+      ? item.previews
+      : item.image
+        ? [{ image: item.image, caption: item.imageAlt || item.name }]
+        : null;
 
     return h("section.section.page-top", null,
       h("a.back", { href: "index.html#tools" }, "← " + t(ui.back)),
       h("div.detail-hero", null,
         h("div.detail-media", null,
           item.image
-            ? h("img", { src: item.image, alt: item.imageAlt || item.name })
+            ? h("button.shot.detail-hero-shot", {
+                type: "button",
+                onClick: function () { if (heroShots) openViewer(heroShots, 0, item.name); }
+              }, h("img", { src: item.image, alt: item.imageAlt || item.name }))
             : h("span.card-icon", null, h("img", { src: item.icon, alt: "" })),
           item.imageNote ? h("p.tool-note", null, t(item.imageNote)) : null
         ),
         h("div.detail-body", null,
-          h("div.kick", null, h("span.card-no", null, "#" + item.no), badge(item.status), item.version ? h("span.card-version", null, item.version) : null),
+          h("div.kick", null,
+            item.icon ? h("img.detail-app-icon", { src: item.icon, alt: "", width: 42, height: 42 }) : null,
+            h("span.card-no", null, "#" + item.no),
+            badge(item.status),
+            item.version ? h("span.card-version", null, item.version) : null
+          ),
           h("h1.page-title", null, item.name),
           h("p.lead", null, t(item.tagline)),
           h("p.detail-summary", null, t(item.summary)),
@@ -639,7 +692,7 @@
         )
       ),
       infoColumns(item),
-      item.screenshot ? h("figure.detail-shot", null, h("img", { src: item.screenshot, alt: item.screenshotAlt || item.name, loading: "lazy" })) : null,
+      toolPreviewsSection(item),
       item.versions
         ? h("details.versions", null,
             h("summary", null, t(ui.versions)),
@@ -652,6 +705,7 @@
         h("h2.h-small", null, t(ui.otherTools)),
         h("ul", null, others.map(function (other) {
           return h("li", null, h("a", { href: toolHref(other) },
+            other.icon ? h("img.others-icon", { src: other.icon, alt: "", width: 28, height: 28 }) : null,
             h("span.card-no", null, "#" + other.no),
             h("span.others-name", null, other.name),
             badge(other.status)
@@ -661,11 +715,452 @@
     );
   }
 
+  /* ---------- KATALOG DATABASE ID (KOMPETISI > TIM > PEMAIN) ---------- */
+
+  var dbSearchQuery = "";
+  var dbActiveGroup = "all";
+  var dbToastTimer = null;
+
+  function normText(str) {
+    var s = String(str || "").toLowerCase();
+    try {
+      return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } catch (e) {
+      return s;
+    }
+  }
+
+  function copyValue(val, labelText, btnNode) {
+    var text = String(val);
+    function onDone() {
+      if (btnNode) {
+        btnNode.classList.add("is-copied");
+        setTimeout(function () { btnNode.classList.remove("is-copied"); }, 1200);
+      }
+      showCopyToast(t(ui.dbCopied) + (labelText ? " " + labelText : "") + ": " + text);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(onDone, function () { fallbackCopy(text, onDone); });
+    } else {
+      fallbackCopy(text, onDone);
+    }
+  }
+
+  function fallbackCopy(text, callback) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) { /* abaikan */ }
+    document.body.removeChild(ta);
+    if (callback) callback();
+  }
+
+  function showCopyToast(msg) {
+    var toast = document.getElementById("d04-toast");
+    if (!toast) {
+      toast = h("div.copy-toast", { id: "d04-toast", role: "status", "aria-live": "polite" });
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.add("is-visible");
+    if (dbToastTimer) clearTimeout(dbToastTimer);
+    dbToastTimer = setTimeout(function () {
+      toast.classList.remove("is-visible");
+    }, 1800);
+  }
+
+  function renderPlayerRow(p, isMatch) {
+    var pid = String(p[0]);
+    var pname = String(p[1]);
+    var idChip = h("button.id-badge.copy-chip", {
+      type: "button",
+      title: t(ui.dbCopyId) + ": " + pid,
+      onClick: function (e) {
+        e.stopPropagation();
+        copyValue(pid, "ID", idChip);
+      }
+    }, pid);
+    var nameSpan = h("button.item-name-btn", {
+      type: "button",
+      title: t(ui.dbCopyName) + ": " + pname,
+      onClick: function (e) {
+        e.stopPropagation();
+        copyValue(pname, "", nameSpan);
+      }
+    }, pname);
+    var btnCopyId = h("button.copy-act", {
+      type: "button",
+      title: t(ui.dbCopyId) + " (" + pid + ")",
+      onClick: function (e) {
+        e.stopPropagation();
+        copyValue(pid, "ID", btnCopyId);
+      }
+    }, "ID");
+    var btnCopyName = h("button.copy-act", {
+      type: "button",
+      title: t(ui.dbCopyName) + " (" + pname + ")",
+      onClick: function (e) {
+        e.stopPropagation();
+        copyValue(pname, "", btnCopyName);
+      }
+    }, t(lang === "id" ? "Nama" : "Name"));
+
+    return h("li.db-player" + (isMatch ? ".is-match" : ""), null,
+      idChip,
+      nameSpan,
+      h("span.copy-actions", null, btnCopyId, btnCopyName)
+    );
+  }
+
+  function buildTeamPlayersList(teamObj, matchedPlayers, forceAll) {
+    var players = teamObj.p || [];
+    var showMatchedOnly = !forceAll && matchedPlayers && matchedPlayers.length > 0 && matchedPlayers.length < players.length;
+    var listToRender = showMatchedOnly ? matchedPlayers : players;
+    var matchSet = {};
+    if (matchedPlayers && matchedPlayers.length) {
+      matchedPlayers.forEach(function (mp) { matchSet[mp[0]] = true; });
+    }
+    var ul = h("ol.db-players", null, listToRender.map(function (p) {
+      return renderPlayerRow(p, Boolean(matchSet[p[0]]));
+    }));
+    if (!showMatchedOnly) return ul;
+
+    var wrap = h("div.db-players-wrap", null,
+      ul,
+      h("button.btn-show-all", {
+        type: "button",
+        onClick: function () {
+          var full = buildTeamPlayersList(teamObj, matchedPlayers, true);
+          if (wrap.parentNode) wrap.parentNode.replaceChild(full, wrap);
+        }
+      }, t(ui.dbShowAllPlayers) + " (" + number(players.length) + ")")
+    );
+    return wrap;
+  }
+
+  function renderTeamNode(tid, teamObj, matchedPlayers, isTeamMatch, autoOpen) {
+    var tidStr = String(tid);
+    var tname = teamObj.n;
+    var players = teamObj.p || [];
+    var isFreeAgents = tidStr === "0";
+    var bodyHost = h("div.db-team-body");
+    var populated = false;
+
+    function ensurePopulated() {
+      if (populated) return;
+      populated = true;
+      append(bodyHost, buildTeamPlayersList(teamObj, matchedPlayers, false));
+    }
+
+    var idChip = !isFreeAgents ? h("button.id-badge.copy-chip", {
+      type: "button",
+      title: t(ui.dbCopyId) + ": " + tidStr,
+      onClick: function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        copyValue(tidStr, "Team ID", idChip);
+      }
+    }, "ID " + tidStr) : null;
+
+    var nameBtn = h("span.db-team-name", null, tname);
+
+    var copyIdBtn = !isFreeAgents ? h("button.copy-act", {
+      type: "button",
+      title: t(ui.dbCopyId) + " (" + tidStr + ")",
+      onClick: function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        copyValue(tidStr, "Team ID", copyIdBtn);
+      }
+    }, "ID") : null;
+
+    var copyNameBtn = h("button.copy-act", {
+      type: "button",
+      title: t(ui.dbCopyName) + " (" + tname + ")",
+      onClick: function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        copyValue(tname, "Team", copyNameBtn);
+      }
+    }, t(lang === "id" ? "Nama" : "Name"));
+
+    var countBadge = matchedPlayers && matchedPlayers.length
+      ? h("span.db-team-count.is-match", null, number(matchedPlayers.length) + " / " + number(players.length) + " " + t(ui.dbPlayersCount))
+      : h("span.db-team-count", null, number(players.length) + " " + t(ui.dbPlayersCount));
+
+    var detailsNode = h("details.db-team" + (isTeamMatch ? ".is-match" : ""), {
+      open: autoOpen ? "" : null,
+      onToggle: function () {
+        if (detailsNode.open) ensurePopulated();
+      }
+    },
+      h("summary", null,
+        h("span.db-team-main", null, idChip, nameBtn),
+        h("span.db-team-side", null,
+          h("span.copy-actions", null, copyIdBtn, copyNameBtn),
+          countBadge
+        )
+      ),
+      bodyHost
+    );
+
+    if (autoOpen) ensurePopulated();
+    return detailsNode;
+  }
+
+  function databasePage() {
+    document.title = t(ui.navDatabase || "Database ID") + " | " + site.brand;
+    var catalog = window.DATABASE_CATALOG;
+    if (!catalog || !catalog.groups || !catalog.teams) {
+      return h("section.section.page-top", null,
+        h("h1.page-title", null, "Database ID"),
+        h("p.lead", null, "Data belum tersedia. Jalankan UPDATE-PATCH-STATS.bat terlebih dahulu.")
+      );
+    }
+
+    var resultsContainer = h("div.db-results");
+    var summaryBar = h("div.db-summary-bar");
+    var searchInput = h("input.db-search-input", {
+      type: "search",
+      value: dbSearchQuery,
+      placeholder: t(ui.dbSearchPlaceholder),
+      "aria-label": t(ui.dbSearchPlaceholder),
+      onKeydown: function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          runSearch(searchInput.value);
+        }
+      },
+      onInput: function () {
+        if (searchInput.value === "" && dbSearchQuery !== "") {
+          runSearch("");
+        }
+      }
+    });
+
+    var filterBar = h("div.db-filters", { role: "tablist" });
+
+    function rebuildFilterPills() {
+      while (filterBar.firstChild) filterBar.removeChild(filterBar.firstChild);
+      var allItems = [{ id: "all", name: ui.dbFilterAll }].concat(catalog.groups);
+      allItems.forEach(function (grp) {
+        var active = dbActiveGroup === grp.id;
+        append(filterBar, h("button.db-filter-pill" + (active ? ".is-active" : ""), {
+          type: "button",
+          onClick: function () {
+            dbActiveGroup = grp.id;
+            rebuildFilterPills();
+            renderCatalogResults();
+          }
+        }, t(grp.name)));
+      });
+    }
+
+    function runSearch(rawQuery) {
+      dbSearchQuery = String(rawQuery || "").trim();
+      renderCatalogResults();
+    }
+
+    function renderCatalogResults() {
+      while (resultsContainer.firstChild) resultsContainer.removeChild(resultsContainer.firstChild);
+      while (summaryBar.firstChild) summaryBar.removeChild(summaryBar.firstChild);
+
+      var q = normText(dbSearchQuery);
+      var isSearching = q.length > 0;
+      var totalCompsShown = 0;
+      var totalTeamsShown = 0;
+      var totalPlayersMatched = 0;
+
+      // Pre-evaluate team & player matches if searching
+      var teamMatchCache = {};
+      if (isSearching) {
+        Object.keys(catalog.teams).forEach(function (tid) {
+          var tObj = catalog.teams[tid];
+          var tidMatch = tid !== "0" && tid.indexOf(q) !== -1;
+          var tnameMatch = normText(tObj.n).indexOf(q) !== -1;
+          var pMatches = [];
+          var pList = tObj.p || [];
+          for (var i = 0; i < pList.length; i++) {
+            var p = pList[i];
+            var pidStr = String(p[0]);
+            var pnameNorm = normText(p[1]);
+            if (pidStr.indexOf(q) !== -1 || pnameNorm.indexOf(q) !== -1) {
+              pMatches.push(p);
+            }
+          }
+          if (tidMatch || tnameMatch || pMatches.length > 0) {
+            teamMatchCache[tid] = {
+              teamMatched: tidMatch || tnameMatch,
+              players: pMatches
+            };
+          }
+        });
+      }
+
+      var autoOpenTeamsCount = 0;
+
+      catalog.groups.forEach(function (group) {
+        if (dbActiveGroup !== "all" && dbActiveGroup !== group.id) return;
+
+        var compNodes = [];
+        group.competitions.forEach(function (comp) {
+          var compNameMatch = isSearching && normText(comp.name).indexOf(q) !== -1;
+          var visibleTeamIds = [];
+
+          comp.teams.forEach(function (tid) {
+            var key = String(tid);
+            if (!catalog.teams[key]) return;
+            if (!isSearching || compNameMatch || teamMatchCache[key]) {
+              visibleTeamIds.push(key);
+            }
+          });
+
+          if (visibleTeamIds.length === 0) return;
+
+          totalCompsShown++;
+          totalTeamsShown += visibleTeamIds.length;
+
+          var compPlayersTotal = 0;
+          var compMatchedPlayersCount = 0;
+          visibleTeamIds.forEach(function (key) {
+            var tObj = catalog.teams[key];
+            compPlayersTotal += (tObj.p ? tObj.p.length : 0);
+            if (isSearching && teamMatchCache[key]) {
+              compMatchedPlayersCount += teamMatchCache[key].players.length;
+            }
+          });
+          totalPlayersMatched += compMatchedPlayersCount;
+
+          var compTeamsContainer = h("div.db-comp-teams");
+          var compPopulated = false;
+
+          function populateCompetitionTeams() {
+            if (compPopulated) return;
+            compPopulated = true;
+            visibleTeamIds.forEach(function (key) {
+              var tObj = catalog.teams[key];
+              var mInfo = isSearching ? teamMatchCache[key] : null;
+              var mPlayers = mInfo ? mInfo.players : null;
+              var isTMatch = mInfo ? mInfo.teamMatched : false;
+              var shouldOpenTeam = isSearching && ((mPlayers && mPlayers.length > 0 && mPlayers.length <= 25 && autoOpenTeamsCount < 15) || (visibleTeamIds.length === 1 && autoOpenTeamsCount < 15));
+              if (shouldOpenTeam) autoOpenTeamsCount++;
+              append(compTeamsContainer, renderTeamNode(key, tObj, mPlayers, isTMatch, shouldOpenTeam));
+            });
+          }
+
+          var openComp = isSearching;
+          var compDetails = h("details.league.db-comp", {
+            open: openComp ? "" : null,
+            onToggle: function () {
+              if (compDetails.open) populateCompetitionTeams();
+            }
+          },
+            h("summary", null,
+              h("span.league-main", null,
+                h("span.league-name", null, comp.name)
+              ),
+              h("span.league-side", null,
+                isSearching && compMatchedPlayersCount > 0
+                  ? h("span.league-new", null, number(compMatchedPlayersCount) + " " + t(ui.dbMatchingPlayers))
+                  : null,
+                h("span.league-count", null, number(visibleTeamIds.length) + " " + t(ui.dbTeamsCount) + " · " + number(compPlayersTotal) + " " + t(ui.dbPlayersCount))
+              )
+            ),
+            h("div.league-body.db-comp-body", null, compTeamsContainer)
+          );
+
+          if (openComp) populateCompetitionTeams();
+          compNodes.push(compDetails);
+        });
+
+        if (compNodes.length > 0) {
+          append(resultsContainer, h("div.region.db-region", null,
+            h("h3.region-name", null, t(group.name), h("span", null, String(compNodes.length) + " " + t(ui.dbCompsCount))),
+            h("div.db-comp-grid", null, compNodes)
+          ));
+        }
+      });
+
+      if (isSearching) {
+        append(summaryBar, h("p.db-search-status", null,
+          h("b", null, t(ui.dbSearchSummary) + ' "' + dbSearchQuery + '": '),
+          number(totalCompsShown) + " " + t(ui.dbCompsCount) + " · " +
+          number(totalTeamsShown) + " " + t(ui.dbTeamsCount) +
+          (totalPlayersMatched > 0 ? " · " + number(totalPlayersMatched) + " " + t(ui.dbMatchingPlayers) : "")
+        ));
+      }
+
+      if (totalCompsShown === 0) {
+        append(resultsContainer, h("div.db-empty", null,
+          h("p", null, t(ui.dbNoResult)),
+          h("button.btn.btn-ghost", {
+            type: "button",
+            onClick: function () {
+              searchInput.value = "";
+              dbActiveGroup = "all";
+              rebuildFilterPills();
+              runSearch("");
+            }
+          }, t(ui.dbClearBtn))
+        ));
+      }
+    }
+
+    rebuildFilterPills();
+    renderCatalogResults();
+
+    var searchForm = h("form.db-search-bar", {
+      onSubmit: function (e) {
+        e.preventDefault();
+        runSearch(searchInput.value);
+      }
+    },
+      searchInput,
+      h("button.btn.btn-primary.db-search-btn", { type: "submit" }, t(ui.dbSearchBtn)),
+      h("button.btn.btn-ghost.db-clear-btn", {
+        type: "button",
+        onClick: function () {
+          searchInput.value = "";
+          runSearch("");
+          searchInput.focus();
+        }
+      }, t(ui.dbClearBtn))
+    );
+
+    return [
+      h("section.section.page-top", null,
+        h("a.back", { href: "index.html" }, "← " + t(ui.back)),
+        h("div.patch-head", null,
+          h("span.shirt-no", { "aria-hidden": "true" }, "ID"),
+          h("div", null,
+            h("div.kick", null, h("span.card-badge.is-released", null, "2026/27"), h("span", null, t(ui.dbKicker))),
+            h("h1.page-title", null, t(ui.dbTitle)),
+            h("p.lead", null, t(ui.dbIntro)),
+            catalog.updated ? h("p.stamp", null, t(ui.patchUpdated) + " " + dateText(catalog.updated)) : null
+          )
+        )
+      ),
+      scoreboard(),
+      h("div.band", null,
+        h("section.section.db-catalog-section", { id: "catalog" },
+          searchForm,
+          filterBar,
+          summaryBar,
+          resultsContainer
+        )
+      )
+    ];
+  }
+
   /* ---------- Menyusun halaman ---------- */
 
   function render() {
     document.documentElement.lang = lang;
-    var body = page === "patch" ? patchPage() : page === "tool" ? toolPage() : homePage();
+    var body = page === "patch" ? patchPage() : page === "database" ? databasePage() : page === "tool" ? toolPage() : homePage();
     var app = document.getElementById("app");
     while (app.firstChild) app.removeChild(app.firstChild);
     append(app, header());
