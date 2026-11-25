@@ -12,11 +12,11 @@ window.SITE = {
   facebook: "https://www.facebook.com/priskojrmod",
 
   // Penghitung pengunjung (muncul di semua halaman).
+  // url = alamat utama situs yang dicatat di server counter.
   // baseCount = angka tambahan awal kalau mau dimulai bukan dari 0.
   counter: {
     enabled: true,
-    namespace: "dzerofour-project",
-    key: "visits",
+    url: "https://priskojr.github.io/dzerofour/",
     baseCount: 0
   },
 

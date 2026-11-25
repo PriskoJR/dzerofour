@@ -185,12 +185,11 @@
 
   function initVisitorCounter() {
     var cfg = site.counter;
-    if (!cfg || !cfg.enabled || !window.fetch) return;
-    var ns = encodeURIComponent(cfg.namespace || "dzerofour-project");
-    var key = encodeURIComponent(cfg.key || "visits");
+    if (!cfg || !cfg.enabled) return;
+    var targetUrl = cfg.url || "https://priskojr.github.io/dzerofour/";
     var base = Number(cfg.baseCount) || 0;
-    var sessionKey = "d04-visited-" + ns + "-" + key;
-    var cacheKey = "d04-count-" + ns + "-" + key;
+    var sessionKey = "d04-visited-session";
+    var cacheKey = "d04-visitor-count";
     var alreadyCounted = false;
 
     try {
@@ -202,23 +201,59 @@
       }
     } catch (e) { /* penyimpanan browser diblokir */ }
 
-    // Saat dibuka sebagai file lokal (file://), jangan menaikkan counter online supaya klik tes lokal tidak spam angka.
-    var isLocalFile = location.protocol === "file:";
-    var endpoint = "https://api.counterapi.dev/v1/" + ns + "/" + key + (alreadyCounted || isLocalFile ? "/" : "/up");
+    function applyRawCount(rawCount) {
+      if (typeof rawCount !== "number" || isNaN(rawCount) || rawCount < 0) return;
+      visitorCount = base + rawCount;
+      updateVisitorNodes();
+      try {
+        sessionStorage.setItem(sessionKey, "1");
+        localStorage.setItem(cacheKey, String(rawCount));
+      } catch (e) { /* abaikan */ }
+    }
 
-    fetch(endpoint)
-      .then(function (res) { return res.ok ? res.json() : null; })
-      .then(function (data) {
-        if (data && typeof data.count === "number") {
-          visitorCount = base + data.count;
-          updateVisitorNodes();
-          try {
-            if (!isLocalFile) sessionStorage.setItem(sessionKey, "1");
-            localStorage.setItem(cacheKey, String(data.count));
-          } catch (e) { /* abaikan */ }
+    // Kalau sudah dihitung di sesi ini dan angkanya sudah di-cache, tidak perlu hit server lagi saat pindah halaman.
+    if (alreadyCounted && typeof visitorCount === "number") return;
+
+    function fallbackBusuanzi() {
+      var cbName = "BusuanziCallback_" + Math.floor(Math.random() * 1000000);
+      var script = document.createElement("script");
+      window[cbName] = function (data) {
+        try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+        if (script.parentNode) script.parentNode.removeChild(script);
+        if (data && typeof data.site_pv === "number") {
+          applyRawCount(data.site_pv);
         }
+      };
+      script.src = "https://busuanzi.ibruce.info/busuanzi?jsonpCallback=" + cbName;
+      script.async = true;
+      script.onerror = function () {
+        if (script.parentNode) script.parentNode.removeChild(script);
+      };
+      document.head.appendChild(script);
+    }
+
+    if (window.fetch) {
+      fetch("https://events.vercount.one/api/v2/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: targetUrl })
       })
-      .catch(function () { /* offline atau diblokir adblock */ });
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (res) {
+          var payload = res && res.data ? res.data : res;
+          var count = payload && (typeof payload.site_pv === "number" ? payload.site_pv : payload.page_pv);
+          if (typeof count === "number") {
+            applyRawCount(count);
+          } else {
+            fallbackBusuanzi();
+          }
+        })
+        .catch(function () {
+          fallbackBusuanzi();
+        });
+    } else {
+      fallbackBusuanzi();
+    }
   }
 
   function footer() {
