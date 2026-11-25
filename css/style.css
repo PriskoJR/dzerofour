@@ -505,8 +505,26 @@ h3 { font-family: var(--display); text-transform: uppercase; line-height: 1; mar
 
 /* FOOTER */
 .footer { padding: 28px var(--gutter) 36px; border-top: 1px solid var(--line); }
+.footer-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px 24px; }
 .footer-brand { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-weight: 600; }
-.footer-legal { color: var(--muted); font-size: .8rem; max-width: 70em; margin-top: 10px; }
+.footer-legal { color: var(--muted); font-size: .8rem; max-width: 70em; margin-top: 12px; }
+.visitor-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 15px; border-radius: 999px;
+  background: var(--panel); border: 1px solid var(--line-strong);
+}
+.visitor-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--mint); box-shadow: 0 0 8px var(--mint); flex: none;
+}
+.visitor-label {
+  color: var(--muted); font: 700 .76rem/1 var(--body);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.visitor-count {
+  color: var(--text); font: 900 1.25rem/1 var(--display);
+  letter-spacing: .02em; font-variant-numeric: tabular-nums;
+}
 
 /* TABLET */
 @media (max-width: 1040px) {

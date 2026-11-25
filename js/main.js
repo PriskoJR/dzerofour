@@ -13,6 +13,7 @@
 
   var lang = readLang();
   var showAllUpdates = false;
+  var visitorCount = null;
 
   function readLang() {
     try {
@@ -163,11 +164,71 @@
     );
   }
 
+  function visitorBadge() {
+    var cfg = site.counter;
+    if (!cfg || !cfg.enabled) return null;
+    var text = typeof visitorCount === "number" ? number(visitorCount) : "···";
+    return h("div.visitor-badge", { "aria-live": "polite" },
+      h("span.visitor-dot", { "aria-hidden": "true" }),
+      h("span.visitor-label", null, t(ui.visitorsLabel || "Pengunjung")),
+      h("strong.visitor-count", { "data-visitor-count": "" }, text)
+    );
+  }
+
+  function updateVisitorNodes() {
+    if (typeof visitorCount !== "number") return;
+    var formatted = number(visitorCount);
+    Array.prototype.forEach.call(document.querySelectorAll("[data-visitor-count]"), function (node) {
+      node.textContent = formatted;
+    });
+  }
+
+  function initVisitorCounter() {
+    var cfg = site.counter;
+    if (!cfg || !cfg.enabled || !window.fetch) return;
+    var ns = encodeURIComponent(cfg.namespace || "dzerofour-project");
+    var key = encodeURIComponent(cfg.key || "visits");
+    var base = Number(cfg.baseCount) || 0;
+    var sessionKey = "d04-visited-" + ns + "-" + key;
+    var cacheKey = "d04-count-" + ns + "-" + key;
+    var alreadyCounted = false;
+
+    try {
+      alreadyCounted = sessionStorage.getItem(sessionKey) === "1";
+      var cached = Number(localStorage.getItem(cacheKey));
+      if (cached > 0 && visitorCount === null) {
+        visitorCount = base + cached;
+        updateVisitorNodes();
+      }
+    } catch (e) { /* penyimpanan browser diblokir */ }
+
+    // Saat dibuka sebagai file lokal (file://), jangan menaikkan counter online supaya klik tes lokal tidak spam angka.
+    var isLocalFile = location.protocol === "file:";
+    var endpoint = "https://api.counterapi.dev/v1/" + ns + "/" + key + (alreadyCounted || isLocalFile ? "/" : "/up");
+
+    fetch(endpoint)
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        if (data && typeof data.count === "number") {
+          visitorCount = base + data.count;
+          updateVisitorNodes();
+          try {
+            if (!isLocalFile) sessionStorage.setItem(sessionKey, "1");
+            localStorage.setItem(cacheKey, String(data.count));
+          } catch (e) { /* abaikan */ }
+        }
+      })
+      .catch(function () { /* offline atau diblokir adblock */ });
+  }
+
   function footer() {
     return h("footer.footer", null,
-      h("p.footer-brand", null,
-        h("img", { src: "assets/logo-d04.png", alt: "", width: 28, height: 28 }),
-        "© " + new Date().getFullYear() + " Dzerofour Project · " + site.author
+      h("div.footer-top", null,
+        h("p.footer-brand", null,
+          h("img", { src: "assets/logo-d04.png", alt: "", width: 28, height: 28 }),
+          "© " + new Date().getFullYear() + " Dzerofour Project · " + site.author
+        ),
+        visitorBadge()
       ),
       h("p.footer-legal", null, t(ui.disclaimer))
     );
@@ -1198,5 +1259,6 @@
 
   render();
   animateScoreboard();
+  initVisitorCounter();
   window.addEventListener("load", scrollToHash);
 })();

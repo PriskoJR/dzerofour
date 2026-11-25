@@ -11,6 +11,15 @@ window.SITE = {
   whatsapp: "62895609621497",
   facebook: "https://www.facebook.com/priskojrmod",
 
+  // Penghitung pengunjung (muncul di semua halaman).
+  // baseCount = angka tambahan awal kalau mau dimulai bukan dari 0.
+  counter: {
+    enabled: true,
+    namespace: "dzerofour-project",
+    key: "visits",
+    baseCount: 0
+  },
+
   home: {
     eyebrow: "PES 2017 · Patch",
     title: "Dzerofour Patch",
@@ -115,6 +124,7 @@ window.SITE = {
     dbSearchSummary: { id: "Hasil pencarian", en: "Search results" },
     dbMatchingPlayers: { id: "pemain cocok", en: "matching players" },
     dbShowAllPlayers: { id: "Tampilkan semua pemain tim ini", en: "Show all players in this team" },
-    dbCTA: { id: "Buka Katalog Database ID", en: "Open Database ID Catalog" }
+    dbCTA: { id: "Buka Katalog Database ID", en: "Open Database ID Catalog" },
+    visitorsLabel: { id: "Pengunjung", en: "Visitors" }
   }
 };
