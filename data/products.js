@@ -50,13 +50,13 @@ window.PRODUCTS = [
       { name: "Project", text: { id: "Kelola real face satu database per tim, salin ID/Nama cepat, lalu build jadi satu CPK", en: "Manage a whole database of real faces by team, quick copy ID/Name, then build one CPK" } }
     ],
     features: [
-      { id: "Kepala, leher, mata, kelopak mata, dan gerakan mulut disesuaikan ke kerangka PES 2017", en: "Head, neck, eyes, eyelids and mouth movement fitted to the PES 2017 skeleton" },
-      { id: "Rambut tetap tajam dan rapi saat replay, seperti face Konami", en: "Hair stays sharp and clean in replays, like Konami's own faces" },
-      { id: "Warna rambut mengikuti face aslinya", en: "Hair colour follows the source face" },
+      { id: "Kepala, leher, mata, kelopak mata, dan gerakan mulut (termasuk bibir bawah eFootball saat teriak) disesuaikan ke kerangka PES 2017", en: "Head, neck, eyes, eyelids and mouth movement (including the eFootball lower lip when shouting) fitted to the PES 2017 skeleton" },
+      { id: "Aksesoris eFootball (topeng, headband, bandana) ikut dikonversi dengan slot tekstur sendiri", en: "eFootball accessories (masks, headbands, bandanas) converted with their own texture slots" },
+      { id: "Rambut tetap tajam dan rapi saat replay, seperti face Konami, serta warna rambut mengikuti aslinya", en: "Hair stays sharp and clean in replays, like Konami's own faces, and hair colour follows the source" },
       { id: "Janggut ikut bergerak bersama mulut", en: "Beards move with the mouth" },
-      { id: "Kulit natural, normal map mengikuti face asli PES 2017", en: "Natural skin, with normal maps that follow Konami's PES 2017 faces" },
-      { id: "Project Manager terintegrasi database: filter per tim, status Real face / No face, dan tombol salin ID & Nama", en: "Database-integrated Project Manager: filter by team, Real face / No face status and quick ID & Name copy" },
-      { id: "Pasang otomatis ke download dan DpFileList, file lama dibackup", en: "Installs to download and DpFileList automatically, with backups" }
+      { id: "Kulit natural tanpa kerutan berlebih, normal map mengikuti face asli PES 2017, dan mendukung tekstur DXT3 / BC5", en: "Natural skin without baked wrinkle maps, normal maps following Konami's PES 2017 faces, plus DXT3 / BC5 texture support" },
+      { id: "Project Manager membaca database maupun save Edit: cocokkan folder FC 27 lewat nama, filter tim, dan salin ID & Nama", en: "Project Manager reads the database or Edit save: matches FC 27 folders by name, filters by team and copies ID & Name" },
+      { id: "Texture Rescaler & Auto Zlib untuk mengatur ukuran output, serta pasang otomatis ke download dan DpFileList dengan backup", en: "Texture Rescaler & Auto Zlib to control output size, plus automatic install to download and DpFileList with backups" }
     ],
     requirements: [
       { id: "Windows 10 atau 11, 64-bit", en: "Windows 10 or 11, 64-bit" },
@@ -65,7 +65,8 @@ window.PRODUCTS = [
       { id: "Tidak perlu install .NET", en: "No .NET install needed" }
     ],
     versions: [
-      { v: "1.5.1", text: { id: "Antarmuka Project & pratinjau 3D baru, filter tim terintegrasi database, tombol salin ID & Nama, serta peningkatan stabilitas konversi", en: "New Project interface & 3D preview modal, database team filter, quick ID & Name copy buttons and conversion stability improvements" } },
+      { v: "1.5.1", text: { id: "Perbaikan penyimpanan pengaturan folder PES 2017, tombol Save settings dengan konfirmasi, dan cadangan otomatis settings.json.bak", en: "Fixed PES 2017 folder setting persistence, added a Save settings button with confirmation and automatic settings.json.bak backup" } },
+      { v: "1.5.0", text: { id: "Perbaikan mulut, leher, kerutan & aksesoris (topeng/headband) eFootball, dukungan tekstur DXT3/BC5 PES 2021, Texture Rescaler & Auto Zlib, Project baca save Edit, dan logo/ikon baru", en: "Fixed eFootball open mouth, neck, wrinkle maps & accessories (masks/headbands), PES 2021 DXT3/BC5 support, Texture Rescaler & Auto Zlib, Edit save reading in Project and new logo/icon" } },
       { v: "1.4.1", text: { id: "Rambut tajam saat replay, warna rambut dari kamera gameplay, normal map mengikuti Konami", en: "Sharp hair in replays, hair colour from the gameplay camera, normal maps follow Konami" } },
       { v: "1.4.0", text: { id: "Kulit dan bulu mata FC 27 lebih natural, perbaikan mata PES 2021", en: "More natural FC 27 skin and eyelashes, PES 2021 eye fixes" } },
       { v: "1.3.0", text: { id: "Tampilan baru, Re-Convert, Convert Face di Project", en: "New interface, Re-Convert, Convert Face in Project" } },
@@ -166,31 +167,31 @@ window.PRODUCTS = [
     name: "CPK Manager",
     short: "CPK Manager",
     status: "soon",
-    version: "v1.6",
+    version: "v2.0",
     no: "1",
     icon: "assets/icon/cpk_icon.svg",
     image: "assets/preview/cpk_manager/cpk_manager_00.png",
     imageAlt: "CPK Explorer dengan pratinjau gambar dan deteksi proteksi di CPK Manager",
     previews: [
-      { image: "assets/preview/cpk_manager/cpk_manager_00.png", caption: { id: "Explorer: jelajahi pohon folder di dalam CPK, pratinjau gambar langsung, properti TOC, dan deteksi proteksi", en: "Explorer: browse the folder tree inside a CPK, live image preview, TOC properties and protection detection" } },
-      { image: "assets/preview/cpk_manager/cpk_manager_01.png", caption: { id: "Build: bangun atau edit CPK dengan pilihan preset game, kompresi CRILAYLA, dan pengaturan per file", en: "Build: generate or edit CPKs with game presets, CRILAYLA compression and per-file settings" } },
+      { image: "assets/preview/cpk_manager/cpk_manager_00.png", caption: { id: "Explorer: multi-tab, pohon folder tervirtualisasi (50.000+ file), pratinjau DDS/PNG/TGA/Hex/@UTF, dan deteksi proteksi", en: "Explorer: multi-tab, virtualised folder tree (50,000+ files), DDS/PNG/TGA/Hex/@UTF preview and protection detection" } },
+      { image: "assets/preview/cpk_manager/cpk_manager_01.png", caption: { id: "Build & Patch Mode: bangun CPK baru atau edit CPK yang ada (.cpkproj) dengan preset game dan kompresi CRILAYLA", en: "Build & Patch Mode: generate new CPKs or edit existing ones (.cpkproj) with game presets and CRILAYLA compression" } },
       { image: "assets/preview/cpk_manager/cpk_manager_02.png", caption: { id: "Game Presets: skema CPK resmi yang dikalibrasi dari 68 CPK bawaan PES 2017 serta fitur klon preset dari CPK game lain", en: "Game Presets: official CPK schema calibrated from 68 stock PES 2017 CPKs, plus preset cloning from other titles" } },
-      { image: "assets/preview/cpk_manager/cpk_manager_03.png", caption: { id: "Activity Log & Compare: catatan lengkap operasi build, deteksi proteksi CRI XOR, dan perbandingan isi antar-CPK", en: "Activity Log & Compare: full log of builds, CRI XOR protection detection and side-by-side CPK comparison" } }
+      { image: "assets/preview/cpk_manager/cpk_manager_03.png", caption: { id: "Activity Log & Compare: catatan operasi build, deteksi proteksi CRI XOR, dan perbandingan isi antar-CPK", en: "Activity Log & Compare: full log of builds, CRI XOR protection detection and side-by-side CPK comparison" } }
     ],
     tagline: {
       id: "Jelajahi, bandingkan, bongkar, dan bangun file CPK dengan skema resmi Konami.",
       en: "Explore, compare, extract and build CPK files with Konami's official schema."
     },
     summary: {
-      id: "Bukan sekadar pembongkar CPK biasa. Dilengkapi CPK Explorer dengan pratinjau gambar langsung, pembuat CPK terkalibrasi dari 68 CPK resmi PES 2017, pembanding dua CPK, dan deteksi proteksi.",
-      en: "More than a basic unpacker. Features a CPK Explorer with live image preview, a builder calibrated from 68 official PES 2017 CPKs, CPK comparison and protection detection."
+      id: "Bukan sekadar pembongkar CPK biasa. Dilengkapi CPK Explorer multi-tab dengan pratinjau gambar/hex/@UTF langsung, pembuat CPK terkalibrasi dari 68 CPK resmi PES 2017, Patch Mode tanpa ekstrak ulang, dan pembanding dua CPK.",
+      en: "More than a basic unpacker. Features a multi-tab CPK Explorer with live image/hex/@UTF preview, a builder calibrated from 68 official PES 2017 CPKs, zero-recompress Patch Mode and CPK comparison."
     },
     features: [
-      { id: "CPK Explorer: buka pohon folder CPK tanpa harus ekstrak semuanya, lengkap dengan filter pencarian, pratinjau gambar, dan info TOC", en: "CPK Explorer: browse the CPK folder tree without extracting everything, complete with search filters, image preview and TOC info" },
-      { id: "Build & Edit CPK: tambah folder/file, ganti atau ubah nama path di dalam CPK, atur kompresi CRILAYLA, dan simpan sebagai project", en: "Build & Edit CPK: add folders/files, replace or rename internal paths, configure CRILAYLA compression and save projects" },
-      { id: "Game Presets terkalibrasi: skema Universal PES & PES 2017 yang identik byte-demi-byte dengan header CPK resmi Konami, plus Clone preset", en: "Calibrated Game Presets: Universal PES & PES 2017 schemas byte-identical to official Konami headers, plus Preset Cloning" },
-      { id: "Compare CPKs: bandingkan isi dua file CPK untuk melihat file yang ditambah, dihapus, diubah, atau sama", en: "Compare CPKs: diff two CPK archives to see added, removed, changed and identical files" },
-      { id: "Deteksi proteksi otomatis (CRI XOR table masking), log aktivitas lengkap, tema gelap/terang, dan mode Always on Top", en: "Automatic protection detection (CRI XOR table masking), full activity log, dark/light themes and Always on Top mode" }
+      { id: "CPK Explorer multi-tab: buka pohon folder CPK (50.000+ file) dan nested CPK tanpa ekstrak, lengkap dengan pencarian wildcard/regex serta pratinjau DDS (BC1-BC7), PNG, TGA, teks, hex, dan tabel @UTF", en: "Multi-tab CPK Explorer: browse 50,000+ file trees and nested CPKs without extracting, with wildcard/regex search and live DDS (BC1-BC7), PNG, TGA, text, hex and @UTF table previews" },
+      { id: "Build & Patch Mode (.cpkproj): bangun CPK paralel multi-core dengan validasi wajib, atau edit CPK yang sudah ada (data yang tidak berubah disalin mentah tanpa re-kompresi)", en: "Build & Patch Mode (.cpkproj): multi-core parallel CPK building with strict post-build validation, or edit existing CPKs in place (unchanged data copied raw without recompressing)" },
+      { id: "Game Presets terkalibrasi: skema Universal PES & PES 2017 yang identik byte-demi-byte dengan 68 header CPK resmi Konami, plus Clone preset dari CPK apa pun", en: "Calibrated Game Presets: Universal PES & PES 2017 schemas byte-identical to 68 official Konami CPK headers, plus Preset Cloning from any CPK" },
+      { id: "Compare & Diff Patch: bandingkan isi dua CPK berdasarkan hash dan bangun CPK patch yang hanya berisi file yang berubah", en: "Compare & Diff Patch: diff two CPK archives by hash and generate a patch CPK containing only the changed files" },
+      { id: "Deteksi lapisan proteksi (CRI XOR table masking), integrasi menu klik kanan Windows Explorer, CLI cpkm.exe, tema gelap/terang, dan Always on Top", en: "Protection layer detection (CRI XOR table masking), Windows Explorer right-click integration, cpkm.exe CLI, dark/light themes and Always on Top" }
     ]
   },
 
@@ -205,20 +206,20 @@ window.PRODUCTS = [
     imageAlt: "PES HUD Editor dengan pratinjau uji warna pada menu utama",
     imageNote: { id: "Warna terang di pratinjau adalah pola uji, bukan desain akhir.", en: "The bright colours in the preview are a test pattern, not a final design." },
     tagline: {
-      id: "Ubah tampilan menu PES 2017 secara visual, lalu ekspor jadi satu CPK.",
-      en: "Redesign the PES 2017 menus visually, then export a single CPK."
+      id: "Ubah tampilan menu, latar video USM, dan HUD PES 2017 secara visual, lalu ekspor jadi satu CPK.",
+      en: "Redesign PES 2017 menus, USM video backgrounds and HUD elements visually, then export a single CPK."
     },
     summary: {
-      id: "Pilih elemen di pratinjau, ubah gambar, warna, atau posisinya, lalu pasang tanpa mengubah file asli game.",
-      en: "Pick an element in the preview, change its image, colour or position, then install without touching the game's original files."
+      id: "Pilih objek langsung dari pohon elemen atau pratinjau 1920 × 1080, ganti gambar, warna, posisi, video latar USM, hingga miniface di layar formasi.",
+      en: "Pick any object from the element tree or 1920 × 1080 preview, change images, colours, positions, USM video backgrounds and formation pitch minifaces."
     },
     features: [
-      { id: "Pratinjau menu 1920 × 1080, klik untuk memilih objek", en: "1920 × 1080 menu preview, click to pick an object" },
-      { id: "Ganti gambar tile, ikon, dan pita", en: "Replace tile images, icons and ribbons" },
-      { id: "Geser, ubah ukuran, putar, atau sembunyikan elemen", en: "Move, resize, rotate or hide elements" },
-      { id: "Ubah teks tab, judul, dan deskripsi", en: "Edit tab, title and description text" },
-      { id: "Latar menu dari gambar atau video", en: "Menu backgrounds from an image or video" },
-      { id: "Pasang dan lepas CPK dengan satu tombol", en: "Install and uninstall the CPK with one button" }
+      { id: "Pratinjau menu 1920 × 1080 dan pohon seluruh objek (All objects): klik atau Ctrl+klik untuk memilih elemen terdalam", en: "1920 × 1080 menu preview and full All objects tree: click or Ctrl+click to select the deepest element" },
+      { id: "Ganti gambar tile, ikon, logo, pita, serta warna elemen dan warna font global", en: "Replace tile images, icons, logos, ribbons, element colours and global font colours" },
+      { id: "Geser, ubah ukuran (skala), putar, atau sembunyikan elemen menu dengan evaluasi PLACE yang presisi", en: "Move, resize (scale), rotate or hide menu elements with byte-accurate PLACE evaluation" },
+      { id: "Konversi video latar menu ke format USM (lengkap dengan audio ADX 48 kHz) yang langsung masuk ke CPK", en: "Convert menu background videos to USM format (with optional 48 kHz ADX audio) packed straight into the CPK" },
+      { id: "Dukungan miniface pemain menggantikan nomor punggung di lapangan formasi (game2dPesEnter & section .hudmf)", en: "Support for player minifaces replacing shirt numbers on the formation pitch (game2dPesEnter & .hudmf section)" },
+      { id: "Simpan sebagai proyek (.hudproj), lalu pasang dan lepas CPK maupun patch exe dengan satu tombol", en: "Save as a project (.hudproj), then install and uninstall both the CPK and exe patch with one button" }
     ]
   },
 

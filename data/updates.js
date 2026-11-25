@@ -38,6 +38,22 @@ window.UPDATES = [
     }
   },
   {
+    date: "2026-11-24",
+    tag: "Face Converter 1.5.1",
+    text: {
+      id: "PES Face Converter 1.5.1 & 1.5.0 rilis: perbaikan mulut, leher, kerutan & aksesoris (topeng/headband) eFootball, dukungan tekstur DXT3/BC5 PES 2021, Texture Rescaler & Auto Zlib, Project baca save Edit, serta tombol Save settings.",
+      en: "PES Face Converter 1.5.1 & 1.5.0 released: eFootball open mouth, neck, wrinkle map & accessory (mask/headband) fixes, PES 2021 DXT3/BC5 support, Texture Rescaler & Auto Zlib, Edit save reading in Project and Save settings button."
+    }
+  },
+  {
+    date: "2026-11-23",
+    tag: "Audio Editor & CPK Manager",
+    text: {
+      id: "PES Audio Editor kini mendukung konversi Chantbase PES 2021 ke 4-channel PES 2017 dan musik walk-out semua klub kandang (.clubbgm). CPK Manager 2.0 hadir dengan CPK Explorer multi-tab, Patch Mode, Compare CPK, dan preset terkalibrasi dari 68 CPK resmi.",
+      en: "PES Audio Editor now converts PES 2021 Chantbase packs to 4-channel PES 2017 and unlocks walk-out anthems for every home club (.clubbgm). CPK Manager 2.0 arrives with a multi-tab Explorer, Patch Mode, CPK Compare and presets calibrated from 68 official CPKs."
+    }
+  },
+  {
     date: "2026-11-23",
     tag: "Exe v60 & PRIME Switch",
     text: {
